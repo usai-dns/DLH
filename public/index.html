@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Hallie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Music prompt — needed for autoplay on mobile -->
+  <div class="music-prompt" id="music-prompt">
+    <div class="music-prompt-card">
+      <p>I made something for you... 🎵</p>
+      <button id="btn-start">Open</button>
+    </div>
+  </div>
+
+  <!-- Floating hearts background -->
+  <div class="hearts-bg" id="hearts-bg"></div>
+
+  <!-- Page 1: The Question -->
+  <div id="page-question" class="page">
+    <div class="card">
+      <div class="envelope-icon">💌</div>
+      <h1>Hallie...</h1>
+      <p class="subtitle">Will you be my Valentine?</p>
+      <div class="buttons">
+        <button id="btn-yes" class="btn btn-yes">Yes! 💕</button>
+        <button id="btn-no" class="btn btn-no">No</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 2: The Celebration + Details -->
+  <div id="page-details" class="page">
+    <div class="details-wrapper">
+      <div class="details-container">
+        <h1 class="celebrate-title">She said YES! 🎉</h1>
+
+        <div class="date-details">
+          <h2>Our Valentine's Date</h2>
+          <div class="detail-item">
+            <span class="detail-icon">🫦</span>
+            <div>
+              <strong>Saturday, February 14th</strong>
+              <p>I'm picking you up, hope you're ready.</p>
+            </div>
+          </div>
+          <div class="detail-item">
+            <span class="detail-icon">💖</span>
+            <div>
+              <strong>February 15th</strong>
+              <p>You look good in anything, but wear a dress 😉</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="carousel-wrapper">
+          <div class="carousel" id="carousel">
+            <img src="images/sunset.jpeg" alt="Us at sunset">
+            <img src="images/dressed-up.jpeg" alt="Looking good together">
+            <img src="images/silly.jpeg" alt="Being silly">
+            <img src="images/paint-night.jpeg" alt="Paint night">
+            <img src="images/cats.jpeg" alt="Our babies">
+          </div>
+        </div>
+
+        <p class="love-note">I love you, Hallie 💕</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confetti canvas -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Audio element -->
+  <audio id="celebration-music" loop>
+    <source src="music/Dennis Loves Hallie.mp3" type="audio/mpeg">
+  </audio>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "name": "dlh",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx serve public -l 8080",
+    "test": "npx playwright test",
+    "test:headed": "npx playwright test --headed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/usai-dns/DLH.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/usai-dns/DLH/issues"
+  },
+  "homepage": "https://github.com/usai-dns/DLH#readme",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "serve": "^14.2.5"
+  }
+}
