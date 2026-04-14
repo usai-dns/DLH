@@ -1,0 +1,8 @@
+{
+  "name": "dlh-anniversary-preview",
+  "account_id": "f1d19cc490b902a854ac1b43b5808673",
+  "compatibility_date": "2026-04-14",
+  "assets": {
+    "directory": "./public"
+  }
+}
