@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
-test.describe('Valentine Card', () => {
+test.describe('Anniversary Card', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
   });
@@ -8,78 +8,111 @@ test.describe('Valentine Card', () => {
   test('shows music prompt first, then reveals card on click', async ({ page }) => {
     // Music prompt visible first
     await expect(page.locator('#music-prompt')).toBeVisible();
-    await expect(page.locator('#page-question')).not.toHaveClass(/active/);
+    await expect(page.locator('#page-card')).not.toHaveClass(/active/);
 
     // Click Open
     await page.locator('#btn-start').click();
     await page.waitForTimeout(800);
 
     // Prompt gone, card visible
-    await expect(page.locator('#page-question')).toHaveClass(/active/);
-    await expect(page.locator('#page-question h1')).toContainText('Hallie');
-    await expect(page.locator('.subtitle')).toContainText('Will you be my Valentine?');
-    await expect(page.locator('#btn-yes')).toBeVisible();
-    await expect(page.locator('#btn-no')).toBeVisible();
+    await expect(page.locator('#page-card')).toHaveClass(/active/);
+    await expect(page.locator('.card-title')).toContainText('Happy Anniversary');
+    await expect(page.locator('.card-message')).toContainText('moving together');
+    await expect(page.locator('#btn-open')).toBeVisible();
   });
 
-  test('No button dodges the mouse cursor', async ({ page }) => {
-    // Get past the music prompt
+  test('card opens and reveals dance selection page', async ({ page }) => {
     await page.locator('#btn-start').click();
     await page.waitForTimeout(800);
 
-    const btnNo = page.locator('#btn-no');
-    const initialBox = await btnNo.boundingBox();
+    await page.locator('#btn-open').click();
+    await page.waitForTimeout(2000);
 
-    await page.mouse.move(
-      initialBox.x + initialBox.width / 2,
-      initialBox.y + initialBox.height / 2
-    );
+    // Dance page should be active
+    await expect(page.locator('#page-dance')).toHaveClass(/active/);
+    await expect(page.locator('.dance-title')).toContainText('Choose Our Dance');
+
+    // All 6 dance options present
+    const options = await page.locator('.dance-option').count();
+    expect(options).toBe(6);
+  });
+
+  test('selecting a dance style highlights it and enables lock-in', async ({ page }) => {
+    // Get to dance page
+    await page.locator('#btn-start').click();
+    await page.waitForTimeout(800);
+    await page.locator('#btn-open').click();
+    await page.waitForTimeout(2000);
+
+    // Lock-in should be disabled initially
+    await expect(page.locator('#btn-lockin')).toBeDisabled();
+
+    // Click Tango
+    await page.locator('[data-style="tango"]').click();
     await page.waitForTimeout(500);
 
-    const newBox = await btnNo.boundingBox();
-    const moved = (
-      Math.abs(newBox.x - initialBox.x) > 10 ||
-      Math.abs(newBox.y - initialBox.y) > 10
-    );
-    expect(moved).toBe(true);
+    // Tango should be selected
+    await expect(page.locator('[data-style="tango"]')).toHaveClass(/selected/);
+    // Lock-in should be enabled
+    await expect(page.locator('#btn-lockin')).not.toBeDisabled();
+    await expect(page.locator('#btn-lockin')).toHaveClass(/enabled/);
   });
 
-  test('clicking Yes shows confetti and transitions to details page', async ({ page }) => {
+  test('switching dance styles updates the selection', async ({ page }) => {
     await page.locator('#btn-start').click();
     await page.waitForTimeout(800);
+    await page.locator('#btn-open').click();
+    await page.waitForTimeout(2000);
 
-    await page.locator('#btn-yes').click();
+    // Select salsa first
+    await page.locator('[data-style="salsa"]').click();
+    await page.waitForTimeout(300);
+    await expect(page.locator('[data-style="salsa"]')).toHaveClass(/selected/);
 
-    const canvas = page.locator('#confetti-canvas');
-    await expect(canvas).toBeVisible();
-
-    await page.waitForTimeout(2500);
-
-    await expect(page.locator('#page-details')).toHaveClass(/active/);
-    await expect(page.locator('.celebrate-title')).toContainText('She said YES');
+    // Switch to blues
+    await page.locator('[data-style="blues"]').click();
+    await page.waitForTimeout(300);
+    await expect(page.locator('[data-style="blues"]')).toHaveClass(/selected/);
+    await expect(page.locator('[data-style="salsa"]')).not.toHaveClass(/selected/);
   });
 
-  test('details page shows date info and floating photos', async ({ page }) => {
+  test('locking in shows celebration page with selected dance', async ({ page }) => {
     await page.locator('#btn-start').click();
     await page.waitForTimeout(800);
+    await page.locator('#btn-open').click();
+    await page.waitForTimeout(2000);
 
-    await page.locator('#btn-yes').click();
-    await page.waitForTimeout(2500);
+    // Select swing
+    await page.locator('[data-style="swing"]').click();
+    await page.waitForTimeout(500);
 
-    await expect(page.locator('.date-details')).toBeVisible();
-    await expect(page.locator('.date-details')).toContainText('February 14th');
-    await expect(page.locator('.date-details')).toContainText('February 15th');
+    // Lock in
+    await page.locator('#btn-lockin').click();
+    await page.waitForTimeout(1500);
 
-    // Carousel photos are present
-    const photoCount = await page.locator('.carousel img').count();
-    expect(photoCount).toBe(5);
+    // Celebration page active
+    await expect(page.locator('#page-celebrate')).toHaveClass(/active/);
+    await expect(page.locator('.celebrate-main')).toContainText("It\u2019s a Date");
+    await expect(page.locator('#celebrate-dance-name')).toContainText('Swing');
   });
 
-  test('floating hearts are being generated', async ({ page }) => {
+  test('sparkles are generated after opening', async ({ page }) => {
     await page.locator('#btn-start').click();
     await page.waitForTimeout(2000);
 
-    const hearts = await page.locator('.floating-heart').count();
-    expect(hearts).toBeGreaterThan(0);
+    const sparkles = await page.locator('.sparkle').count();
+    expect(sparkles).toBeGreaterThan(0);
+  });
+
+  test('all six dance styles are present', async ({ page }) => {
+    await page.locator('#btn-start').click();
+    await page.waitForTimeout(800);
+    await page.locator('#btn-open').click();
+    await page.waitForTimeout(2000);
+
+    const styles = ['tango', 'salsa', 'blues', 'swing', 'hiphop', 'country'];
+    for (const style of styles) {
+      await expect(page.locator(`[data-style="${style}"]`)).toBeVisible();
+    }
   });
 });

@@ -3,83 +3,141 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>For Hallie</title>
+  <title>Happy Anniversary, Hallie</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Music prompt — needed for autoplay on mobile -->
+
+  <!-- Intro prompt — user interaction unlocks audio -->
   <div class="music-prompt" id="music-prompt">
     <div class="music-prompt-card">
-      <p>I made something for you... 🎵</p>
+      <p>I have something for you...</p>
       <button id="btn-start">Open</button>
     </div>
   </div>
 
-  <!-- Floating hearts background -->
-  <div class="hearts-bg" id="hearts-bg"></div>
+  <!-- Ambient floating sparkles -->
+  <div class="ambient-bg" id="ambient-bg"></div>
 
-  <!-- Page 1: The Question -->
-  <div id="page-question" class="page">
-    <div class="card">
-      <div class="envelope-icon">💌</div>
-      <h1>Hallie...</h1>
-      <p class="subtitle">Will you be my Valentine?</p>
-      <div class="buttons">
-        <button id="btn-yes" class="btn btn-yes">Yes! 💕</button>
-        <button id="btn-no" class="btn btn-no">No</button>
+  <!-- ===== Page 1: Anniversary Card ===== -->
+  <div id="page-card" class="page">
+    <div class="card-scene">
+      <div class="card-wrapper" id="card-wrapper">
+        <!-- Two doors that swing open -->
+        <div class="card-door card-door-left">
+          <div class="door-ornament"></div>
+        </div>
+        <div class="card-door card-door-right">
+          <div class="door-ornament"></div>
+        </div>
+        <!-- Card face content -->
+        <div class="card-face" id="card-face">
+          <div class="card-seal">&#x1F483;&#x1F57A;</div>
+          <h1 class="card-title">Happy Anniversary,<br>My Love</h1>
+          <div class="card-divider">
+            <span></span><span class="divider-heart">&#10084;</span><span></span>
+          </div>
+          <p class="card-message">You&rsquo;re what moves me,<br>so let&rsquo;s get moving together.</p>
+          <button class="btn btn-open" id="btn-open">Open</button>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Page 2: The Celebration + Details -->
-  <div id="page-details" class="page">
-    <div class="details-wrapper">
-      <div class="details-container">
-        <h1 class="celebrate-title">She said YES! 🎉</h1>
+  <!-- ===== Page 2: Dance Selection ===== -->
+  <div id="page-dance" class="page">
+    <!-- Two background layers for cross-fade transitions -->
+    <div class="dance-bg-layer" id="dance-bg-1"></div>
+    <div class="dance-bg-layer" id="dance-bg-2"></div>
+    <div class="dance-overlay"></div>
 
-        <div class="date-details">
-          <h2>Our Valentine's Date</h2>
-          <div class="detail-item">
-            <span class="detail-icon">🫦</span>
-            <div>
-              <strong>Saturday, February 14th</strong>
-              <p>I'm picking you up, hope you're ready.</p>
-            </div>
-          </div>
-          <div class="detail-item">
-            <span class="detail-icon">💖</span>
-            <div>
-              <strong>February 15th</strong>
-              <p>You look good in anything, but wear a dress 😉</p>
-            </div>
-          </div>
-        </div>
+    <div class="dance-content" id="dance-content">
 
-        <div class="carousel-wrapper">
-          <div class="carousel" id="carousel">
-            <img src="images/sunset.jpeg" alt="Us at sunset">
-            <img src="images/dressed-up.jpeg" alt="Looking good together">
-            <img src="images/silly.jpeg" alt="Being silly">
-            <img src="images/paint-night.jpeg" alt="Paint night">
-            <img src="images/cats.jpeg" alt="Our babies">
-          </div>
-        </div>
-
-        <p class="love-note">I love you, Hallie 💕</p>
+      <!-- Dancing couple silhouette -->
+      <div class="silhouette-wrap">
+        <svg class="silhouette-svg" viewBox="0 0 300 480" fill="currentColor" aria-hidden="true">
+          <!-- Man (left figure) -->
+          <circle cx="118" cy="62" r="22"/>
+          <path d="M105,84 C102,100 100,122 102,152 L102,190
+                   L92,190 L78,305 L72,385 L94,387 L104,310 L112,250
+                   L120,310 L126,387 L148,385 L138,305 L126,190
+                   L116,190 L116,152 C118,122 116,100 113,84 Z"/>
+          <path d="M102,115 C82,126 58,136 34,143 L35,150
+                   C60,143 84,133 104,122 Z"/>
+          <path d="M116,115 C138,132 156,150 170,168 L176,162
+                   C162,145 142,128 118,110 Z"/>
+          <!-- Woman (right figure) -->
+          <ellipse cx="198" cy="55" rx="20" ry="22" transform="rotate(5,198,55)"/>
+          <path d="M185,77 C182,93 181,113 183,143 L183,170
+                   C167,248 155,328 150,388 L170,390
+                   C176,340 184,292 191,248
+                   C197,292 204,340 209,390 L229,388
+                   C224,328 212,248 197,170 L197,143
+                   C199,113 198,93 195,77 Z"/>
+          <path d="M183,107 C164,115 144,122 124,128 L126,134
+                   C146,128 166,121 185,113 Z"/>
+          <path d="M197,102 C217,92 236,85 256,80 L254,74
+                   C234,79 215,87 195,97 Z"/>
+        </svg>
       </div>
+
+      <h2 class="dance-title" id="dance-title">Choose Our Dance</h2>
+
+      <!-- Dance style selector grid -->
+      <div class="dance-selector" id="dance-selector">
+        <button class="dance-option" data-style="tango">
+          <span class="dance-icon">&#x1F339;</span>
+          <span class="dance-name">Tango</span>
+          <span class="dance-desc">Passionate &amp; Dramatic</span>
+        </button>
+        <button class="dance-option" data-style="salsa">
+          <span class="dance-icon">&#x1F336;&#xFE0F;</span>
+          <span class="dance-name">Salsa</span>
+          <span class="dance-desc">Hot &amp; Energetic</span>
+        </button>
+        <button class="dance-option" data-style="blues">
+          <span class="dance-icon">&#x1F3B7;</span>
+          <span class="dance-name">Blues</span>
+          <span class="dance-desc">Soulful &amp; Smooth</span>
+        </button>
+        <button class="dance-option" data-style="swing">
+          <span class="dance-icon">&#x1F3BA;</span>
+          <span class="dance-name">Swing</span>
+          <span class="dance-desc">Upbeat &amp; Joyful</span>
+        </button>
+        <button class="dance-option" data-style="hiphop">
+          <span class="dance-icon">&#x1F3A4;</span>
+          <span class="dance-name">Hip Hop</span>
+          <span class="dance-desc">Bold &amp; Fresh</span>
+        </button>
+        <button class="dance-option" data-style="country">
+          <span class="dance-icon">&#x1F920;</span>
+          <span class="dance-name">Country</span>
+          <span class="dance-desc">Warm &amp; Classic</span>
+        </button>
+      </div>
+
+      <button class="btn btn-lockin" id="btn-lockin" disabled>Lock In Your Answer</button>
     </div>
   </div>
 
-  <!-- Confetti canvas -->
-  <canvas id="confetti-canvas"></canvas>
+  <!-- ===== Page 3: Celebration ===== -->
+  <div id="page-celebrate" class="page">
+    <div class="celebrate-bg" id="celebrate-bg"></div>
+    <div class="spotlight-container" id="spotlight-container"></div>
+    <div class="celebrate-content" id="celebrate-content">
+      <h1 class="celebrate-main">&#127881; It&rsquo;s a Date! &#127881;</h1>
+      <div class="celebrate-dance-name" id="celebrate-dance-name"></div>
+      <p class="celebrate-sub">Get ready to move, my love</p>
+      <div class="celebrate-hearts">&#10084;&#65039;</div>
+    </div>
+  </div>
 
-  <!-- Audio element -->
-  <audio id="celebration-music" loop>
-    <source src="music/Dennis Loves Hallie.mp3" type="audio/mpeg">
-  </audio>
+  <!-- Effects canvas (confetti / sparkles) -->
+  <canvas id="effects-canvas"></canvas>
 
   <script src="script.js"></script>
 </body>

@@ -1,3 +1,7 @@
+/* ============================================
+   ANNIVERSARY CARD — dennisloveshallie.com
+   ============================================ */
+
 * {
   margin: 0;
   padding: 0;
@@ -6,52 +10,55 @@
 
 body {
   min-height: 100vh;
-  background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 30%, #f48fb1 60%, #ec407a 100%);
+  background: #0a0a1a;
   font-family: 'Poppins', sans-serif;
-  overflow-x: hidden;
+  overflow: hidden;
   position: relative;
+  color: #fff;
 }
 
-/* Floating hearts background */
-.hearts-bg {
+/* ============================================
+   AMBIENT FLOATING SPARKLES
+   ============================================ */
+.ambient-bg {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   pointer-events: none;
   z-index: 0;
   overflow: hidden;
 }
 
-.floating-heart {
+.sparkle {
   position: absolute;
-  bottom: -50px;
-  font-size: 20px;
-  animation: floatUp linear infinite;
-  opacity: 0.6;
+  bottom: -20px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.8);
+  animation: sparkleFloat linear infinite;
+  box-shadow: 0 0 6px 2px rgba(255, 255, 255, 0.3);
 }
 
-@keyframes floatUp {
+@keyframes sparkleFloat {
   0% {
-    transform: translateY(0) rotate(0deg);
-    opacity: 0.6;
+    transform: translateY(0) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
   }
   100% {
-    transform: translateY(-110vh) rotate(360deg);
+    transform: translateY(-110vh) scale(0.3);
     opacity: 0;
   }
 }
 
-/* ========================================
-   Pages
-   ======================================== */
+/* ============================================
+   PAGES — shared layout
+   ============================================ */
 .page {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -67,76 +74,179 @@ body {
   pointer-events: auto;
 }
 
-/* Page 1 stays fixed/centered */
-#page-question.active {
+/* ============================================
+   MUSIC PROMPT OVERLAY
+   ============================================ */
+.music-prompt {
   position: fixed;
-}
-
-/* Page 2 scrolls */
-#page-details.active {
-  position: relative;
-  min-height: 100vh;
-  height: auto;
-  align-items: flex-start;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
   justify-content: center;
-  padding: 40px 0;
-  overflow-y: auto;
+  z-index: 200;
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.5s ease;
 }
 
-/* ========================================
-   Card — paper texture, larger, mobile-first
-   ======================================== */
-.card {
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.music-prompt-card {
+  background: linear-gradient(180deg, #fdf8f0, #f5ece0);
+  border-radius: 16px;
+  padding: 44px 34px;
+  text-align: center;
+  max-width: 340px;
+  width: 85%;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    0 0 80px rgba(200, 150, 100, 0.08);
+  border: 1px solid rgba(200, 180, 160, 0.3);
+}
+
+.music-prompt-card p {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.5rem;
+  color: #8b4060;
+  margin-bottom: 24px;
+}
+
+.music-prompt-card button {
+  padding: 14px 44px;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(135deg, #c47a9a, #8b4060);
+  color: white;
+  box-shadow: 0 6px 20px rgba(139, 64, 96, 0.4);
+  transition: transform 0.2s ease;
+}
+
+.music-prompt-card button:hover {
+  transform: scale(1.05);
+}
+
+/* ============================================
+   PAGE 1: ANNIVERSARY CARD
+   ============================================ */
+#page-card {
+  background: linear-gradient(135deg, #1a0a1e 0%, #2a1a3e 30%, #1a1a3e 60%, #0a1a2e 100%);
+}
+
+.card-scene {
+  perspective: 1200px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-wrapper {
+  position: relative;
+  width: 460px;
+  max-width: 88vw;
+  height: 560px;
+  max-height: 80vh;
+  transform-style: preserve-3d;
+}
+
+/* --- Card doors (the two halves) --- */
+.card-door {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
   background:
     repeating-linear-gradient(
       0deg,
       transparent,
       transparent 31px,
-      rgba(200, 180, 160, 0.08) 31px,
-      rgba(200, 180, 160, 0.08) 32px
+      rgba(200, 180, 160, 0.06) 31px,
+      rgba(200, 180, 160, 0.06) 32px
     ),
-    linear-gradient(
-      180deg,
-      #fdf8f0 0%,
-      #faf3e8 30%,
-      #f5ece0 100%
-    );
-  border-radius: 8px;
-  padding: 50px 35px;
-  text-align: center;
-  max-width: 600px;
-  width: 92%;
-  position: relative;
-  animation: cardEntrance 1s ease-out;
-  /* Paper-like shadow & edges */
+    linear-gradient(180deg, #fdf8f0 0%, #faf3e8 30%, #f5ece0 100%);
+  background-blend-mode: multiply;
+  transition: transform 1.4s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.8s ease 0.4s;
+  transform-style: preserve-3d;
   box-shadow:
     0 2px 4px rgba(0,0,0,0.06),
     0 8px 20px rgba(0,0,0,0.08),
-    0 30px 60px rgba(0,0,0,0.12),
-    inset 0 0 80px rgba(200, 180, 160, 0.06);
+    0 30px 60px rgba(0,0,0,0.12);
   border: 1px solid rgba(200, 180, 160, 0.3);
-  /* Slight paper roughness via noise */
-  background-blend-mode: multiply;
 }
 
-/* Torn/deckled edge feel */
-.card::before {
-  content: '';
+.card-door-left {
+  left: 0;
+  transform-origin: left center;
+  border-radius: 8px 0 0 8px;
+  border-right: 1px dashed rgba(180, 160, 140, 0.25);
+}
+
+.card-door-right {
+  right: 0;
+  transform-origin: right center;
+  border-radius: 0 8px 8px 0;
+  border-left: 1px dashed rgba(180, 160, 140, 0.25);
+}
+
+/* Ornamental inner border on each door */
+.door-ornament {
   position: absolute;
-  top: -1px;
-  left: 10px;
-  right: 10px;
-  height: 3px;
-  background: linear-gradient(90deg,
-    transparent 0%, #fdf8f0 5%, transparent 10%,
-    #fdf8f0 15%, transparent 20%, #fdf8f0 25%,
-    transparent 30%, #fdf8f0 35%, transparent 40%,
-    #fdf8f0 45%, transparent 50%, #fdf8f0 55%,
-    transparent 60%, #fdf8f0 65%, transparent 70%,
-    #fdf8f0 75%, transparent 80%, #fdf8f0 85%,
-    transparent 90%, #fdf8f0 95%, transparent 100%
-  );
-  border-radius: 2px;
+  top: 20px;
+  bottom: 20px;
+  border: 1px solid rgba(180, 150, 120, 0.2);
+  border-radius: 4px;
+}
+
+.card-door-left .door-ornament {
+  left: 20px;
+  right: 5px;
+}
+
+.card-door-right .door-ornament {
+  right: 20px;
+  left: 5px;
+}
+
+/* --- Opening animation --- */
+.card-wrapper.opening {}
+
+.card-wrapper.opening .card-door-left {
+  transform: rotateY(-130deg);
+  opacity: 0;
+}
+
+.card-wrapper.opening .card-door-right {
+  transform: rotateY(130deg);
+  opacity: 0;
+}
+
+.card-wrapper.opening .card-face {
+  opacity: 0;
+  transform: scale(0.9);
+  pointer-events: none;
+}
+
+/* --- Card face (text content on top of doors) --- */
+.card-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 30px;
+  z-index: 3;
+  transition: opacity 0.6s ease, transform 0.8s ease;
+  animation: cardEntrance 1s ease-out;
 }
 
 @keyframes cardEntrance {
@@ -150,430 +260,549 @@ body {
   }
 }
 
-.envelope-icon {
-  font-size: 72px;
-  margin-bottom: 24px;
-  animation: pulse 2s ease-in-out infinite;
+.card-seal {
+  font-size: 56px;
+  margin-bottom: 20px;
+  animation: sealPulse 2.5s ease-in-out infinite;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));
 }
 
-@keyframes pulse {
+@keyframes sealPulse {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
+  50% { transform: scale(1.08); }
 }
 
-.card h1 {
+.card-title {
   font-family: 'Dancing Script', cursive;
-  font-size: 3rem;
-  color: #c2185b;
-  margin-bottom: 12px;
+  font-size: 2.6rem;
+  color: #8b3060;
+  margin-bottom: 16px;
+  line-height: 1.25;
+  text-align: center;
 }
 
-.subtitle {
-  font-family: 'Dancing Script', cursive;
-  font-size: 1.6rem;
-  color: #e91e63;
-  margin-bottom: 44px;
-}
-
-/* ========================================
-   Buttons
-   ======================================== */
-.buttons {
+.card-divider {
   display: flex;
-  gap: 20px;
-  justify-content: center;
   align-items: center;
-  min-height: 80px;
-  position: relative;
+  gap: 10px;
+  margin-bottom: 20px;
+  width: 70%;
 }
 
+.card-divider span:first-child,
+.card-divider span:last-child {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(180, 140, 160, 0.4), transparent);
+}
+
+.divider-heart {
+  color: #c47a9a;
+  font-size: 0.9rem;
+}
+
+.card-message {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.35rem;
+  color: #a06080;
+  margin-bottom: 36px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/* ============================================
+   SHARED BUTTONS
+   ============================================ */
 .btn {
-  padding: 18px 48px;
+  padding: 16px 44px;
   border: none;
   border-radius: 50px;
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.btn-yes {
-  background: linear-gradient(135deg, #e91e63, #c2185b);
+.btn-open {
+  background: linear-gradient(135deg, #c47a9a, #8b3060);
   color: white;
-  box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4);
+  box-shadow: 0 6px 24px rgba(139, 48, 96, 0.4);
 }
 
-.btn-yes:hover {
-  transform: scale(1.08);
-  box-shadow: 0 8px 30px rgba(233, 30, 99, 0.6);
+.btn-open:hover {
+  transform: scale(1.06);
+  box-shadow: 0 8px 30px rgba(139, 48, 96, 0.55);
 }
 
-.btn-no {
-  background: #f5f5f5;
-  color: #999;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: none;
+/* ============================================
+   PAGE 2: DANCE SELECTION
+   ============================================ */
+.dance-bg-layer {
+  position: absolute;
+  inset: 0;
+  transition: opacity 1s ease;
+  z-index: 0;
 }
 
-/* ========================================
-   Page 2: Details with floating photos
-   ======================================== */
-.details-wrapper {
+#dance-bg-1 {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  opacity: 1;
+}
+
+#dance-bg-2 {
+  opacity: 0;
+}
+
+.dance-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 30%, transparent 0%, rgba(0,0,0,0.3) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.dance-content {
   position: relative;
-  width: 100%;
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  height: 100%;
+  justify-content: center;
+  gap: 16px;
+  overflow-y: auto;
 }
 
-.details-container {
+/* --- Silhouette --- */
+.silhouette-wrap {
+  width: 160px;
+  height: 160px;
+  flex-shrink: 0;
+  transition: color 0.8s ease;
+  color: rgba(255, 255, 255, 0.1);
+}
+
+.silhouette-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* --- Dance title --- */
+.dance-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.2rem;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  transition: color 0.8s ease;
   text-align: center;
-  padding: 0 20px;
-  max-width: 500px;
-  width: 95%;
-  animation: fadeInUp 1s ease-out;
-  position: relative;
-  z-index: 2;
+  flex-shrink: 0;
 }
 
-@keyframes fadeInUp {
+/* --- Dance selector grid --- */
+.dance-selector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: 100%;
+  max-width: 480px;
+  flex-shrink: 0;
+}
+
+.dance-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 8px;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: all 0.35s ease;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: 'Poppins', sans-serif;
+}
+
+.dance-option:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.dance-option.selected {
+  border-color: var(--accent, rgba(255, 255, 255, 0.6));
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1),
+              inset 0 0 20px rgba(255, 255, 255, 0.05);
+  transform: translateY(-3px) scale(1.03);
+  color: #fff;
+}
+
+.dance-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+.dance-name {
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+}
+
+.dance-desc {
+  font-size: 0.65rem;
+  opacity: 0.65;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* --- Lock-In Button --- */
+.btn-lockin {
+  padding: 16px 48px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 1.1rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  cursor: not-allowed;
+  transition: all 0.4s ease;
+  flex-shrink: 0;
+}
+
+.btn-lockin.enabled {
+  cursor: pointer;
+  color: #fff;
+  border-color: var(--accent, #fff);
+  background: linear-gradient(135deg,
+    var(--accent-dark, rgba(255,255,255,0.15)),
+    var(--accent, rgba(255,255,255,0.25)));
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3),
+              0 0 30px var(--accent-glow, rgba(255,255,255,0.1));
+  animation: lockInPulse 2s ease-in-out infinite;
+}
+
+.btn-lockin.enabled:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4),
+              0 0 40px var(--accent-glow, rgba(255,255,255,0.2));
+}
+
+@keyframes lockInPulse {
+  0%, 100% { box-shadow: 0 4px 20px rgba(0,0,0,0.3), 0 0 20px var(--accent-glow, rgba(255,255,255,0.1)); }
+  50% { box-shadow: 0 4px 20px rgba(0,0,0,0.3), 0 0 40px var(--accent-glow, rgba(255,255,255,0.2)); }
+}
+
+/* ============================================
+   PAGE 3: CELEBRATION
+   ============================================ */
+.celebrate-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  transition: background 0.5s ease;
+}
+
+.spotlight-container {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.spotlight {
+  position: absolute;
+  width: 250px;
+  height: 120vh;
+  top: -10vh;
+  background: radial-gradient(ellipse at 50% 0%,
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(255, 255, 255, 0.06) 30%,
+    transparent 70%);
+  animation: spotlightSweep var(--sweep-dur, 4s) ease-in-out infinite alternate;
+  animation-delay: var(--sweep-delay, 0s);
+  opacity: 0;
+  transform-origin: top center;
+}
+
+@keyframes spotlightSweep {
   0% {
-    transform: translateY(40px);
+    transform: translateX(var(--start-x, -200px)) rotate(-15deg);
     opacity: 0;
   }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
   100% {
-    transform: translateY(0);
+    transform: translateX(var(--end-x, 100vw)) rotate(15deg);
+    opacity: 0;
+  }
+}
+
+.celebrate-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  animation: celebrateEntry 1.2s ease-out;
+  padding: 20px;
+}
+
+@keyframes celebrateEntry {
+  0% {
+    transform: scale(0.5) translateY(40px);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) translateY(0);
     opacity: 1;
   }
 }
 
-.celebrate-title {
+.celebrate-main {
   font-family: 'Dancing Script', cursive;
-  font-size: 3rem;
-  color: white;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  margin-bottom: 30px;
-}
-
-.date-details {
-  background:
-    linear-gradient(
-      180deg,
-      #fdf8f0 0%,
-      #faf3e8 30%,
-      #f5ece0 100%
-    );
-  border-radius: 8px;
-  padding: 35px 25px;
-  margin-bottom: 30px;
-  box-shadow:
-    0 2px 4px rgba(0,0,0,0.06),
-    0 8px 20px rgba(0,0,0,0.08),
-    0 20px 40px rgba(0,0,0,0.1);
-  border: 1px solid rgba(200, 180, 160, 0.3);
-}
-
-.date-details h2 {
-  font-family: 'Dancing Script', cursive;
-  font-size: 2rem;
-  color: #c2185b;
+  font-size: 3.6rem;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
   margin-bottom: 20px;
+  line-height: 1.2;
 }
 
-.detail-item {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  text-align: left;
-  padding: 15px 0;
-  border-bottom: 1px solid rgba(200, 180, 160, 0.2);
+.celebrate-dance-name {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  padding: 12px 32px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
 }
 
-.detail-item:last-child {
-  border-bottom: none;
-}
-
-.detail-icon {
-  font-size: 2rem;
-  flex-shrink: 0;
-}
-
-.detail-item strong {
-  color: #c2185b;
-  font-size: 1.05rem;
-}
-
-.detail-item p {
-  color: #777;
-  font-size: 0.95rem;
-  margin-top: 4px;
-}
-
-/* ========================================
-   3D Photo Carousel
-   ======================================== */
-.carousel-wrapper {
-  perspective: 800px;
-  width: 100%;
-  max-width: 500px;
-  margin: 40px auto 30px;
-  height: 180px;
-  overflow: visible;
-}
-
-.carousel {
-  width: 150px;
-  height: 150px;
-  margin: 0 auto;
-  position: relative;
-  transform-style: preserve-3d;
-  animation: spin 20s linear infinite;
-}
-
-.carousel img {
-  position: absolute;
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 12px;
-  border: 3px solid white;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-  backface-visibility: hidden;
-  top: 0;
-  left: 0;
-}
-
-/* 5 images = 72deg apart, radius ~200px */
-.carousel img:nth-child(1) { transform: rotateY(0deg)    translateZ(200px); }
-.carousel img:nth-child(2) { transform: rotateY(72deg)   translateZ(200px); }
-.carousel img:nth-child(3) { transform: rotateY(144deg)  translateZ(200px); }
-.carousel img:nth-child(4) { transform: rotateY(216deg)  translateZ(200px); }
-.carousel img:nth-child(5) { transform: rotateY(288deg)  translateZ(200px); }
-
-@keyframes spin {
-  from { transform: rotateY(0deg); }
-  to   { transform: rotateY(360deg); }
-}
-
-.love-note {
+.celebrate-sub {
   font-family: 'Dancing Script', cursive;
-  font-size: 2rem;
-  color: white;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  padding: 20px 0;
-  position: relative;
-  z-index: 2;
+  font-size: 1.6rem;
+  opacity: 0.85;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  margin-bottom: 24px;
 }
 
-/* ========================================
-   Confetti canvas
-   ======================================== */
-#confetti-canvas {
+.celebrate-hearts {
+  font-size: 3rem;
+  animation: heartBeat 1.2s ease-in-out infinite;
+}
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.15); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.1); }
+}
+
+/* ============================================
+   EFFECTS CANVAS
+   ============================================ */
+#effects-canvas {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
   z-index: 100;
 }
 
-/* ========================================
-   Music prompt overlay
-   ======================================== */
-.music-prompt {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 200;
-  backdrop-filter: blur(4px);
-  animation: fadeIn 0.5s ease;
-}
+/* ============================================
+   RESPONSIVE — mobile first
+   ============================================ */
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.music-prompt-card {
-  background: #fdf8f0;
-  border-radius: 16px;
-  padding: 40px 30px;
-  text-align: center;
-  max-width: 340px;
-  width: 85%;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(200, 180, 160, 0.3);
-}
-
-.music-prompt-card p {
-  font-family: 'Dancing Script', cursive;
-  font-size: 1.5rem;
-  color: #c2185b;
-  margin-bottom: 24px;
-}
-
-.music-prompt-card button {
-  padding: 14px 40px;
-  border: none;
-  border-radius: 50px;
-  font-size: 1.1rem;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
-  cursor: pointer;
-  background: linear-gradient(135deg, #e91e63, #c2185b);
-  color: white;
-  box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4);
-  transition: transform 0.2s ease;
-}
-
-.music-prompt-card button:hover {
-  transform: scale(1.05);
-}
-
-/* ========================================
-   Responsive — mobile first, scale up
-   ======================================== */
-
-/* Base: mobile (small screens) */
-.card {
-  max-width: 92vw;
-}
-
-.card h1 {
-  font-size: 2.8rem;
-}
-
-.subtitle {
-  font-size: 1.4rem;
-}
-
-.btn {
-  padding: 16px 36px;
-  font-size: 1.1rem;
-}
-
-.celebrate-title {
-  font-size: 2.4rem;
-}
-
-.carousel-wrapper {
-  height: 140px;
-}
-
-.carousel {
-  width: 110px;
-  height: 110px;
-}
-
-.carousel img {
-  width: 110px;
-  height: 110px;
-}
-
-.carousel img:nth-child(1) { transform: rotateY(0deg)    translateZ(150px); }
-.carousel img:nth-child(2) { transform: rotateY(72deg)   translateZ(150px); }
-.carousel img:nth-child(3) { transform: rotateY(144deg)  translateZ(150px); }
-.carousel img:nth-child(4) { transform: rotateY(216deg)  translateZ(150px); }
-.carousel img:nth-child(5) { transform: rotateY(288deg)  translateZ(150px); }
-
-/* Medium screens (tablets) */
-@media (min-width: 480px) {
-  .card {
-    max-width: 500px;
-    padding: 55px 40px;
+/* Small phones */
+@media (max-height: 680px) {
+  .silhouette-wrap {
+    width: 110px;
+    height: 110px;
   }
 
-  .card h1 {
-    font-size: 3.2rem;
-  }
-
-  .subtitle {
+  .dance-title {
     font-size: 1.6rem;
   }
 
-  .celebrate-title {
-    font-size: 2.8rem;
+  .dance-option {
+    padding: 10px 6px;
   }
 
-  .carousel-wrapper {
-    height: 160px;
+  .dance-icon {
+    font-size: 1.4rem;
   }
 
-  .carousel {
-    width: 130px;
-    height: 130px;
+  .dance-name {
+    font-size: 0.75rem;
   }
 
-  .carousel img {
-    width: 130px;
-    height: 130px;
+  .dance-desc {
+    font-size: 0.55rem;
   }
 
-  .carousel img:nth-child(1) { transform: rotateY(0deg)    translateZ(180px); }
-  .carousel img:nth-child(2) { transform: rotateY(72deg)   translateZ(180px); }
-  .carousel img:nth-child(3) { transform: rotateY(144deg)  translateZ(180px); }
-  .carousel img:nth-child(4) { transform: rotateY(216deg)  translateZ(180px); }
-  .carousel img:nth-child(5) { transform: rotateY(288deg)  translateZ(180px); }
+  .dance-content {
+    gap: 10px;
+  }
+
+  .btn-lockin {
+    padding: 12px 36px;
+    font-size: 0.95rem;
+  }
+
+  .card-wrapper {
+    height: 480px;
+  }
+
+  .card-title {
+    font-size: 2.2rem;
+  }
+
+  .card-seal {
+    font-size: 44px;
+    margin-bottom: 12px;
+  }
+
+  .card-message {
+    font-size: 1.15rem;
+    margin-bottom: 24px;
+  }
 }
 
-/* Large screens (desktop) */
+/* Medium screens */
+@media (min-width: 480px) {
+  .card-wrapper {
+    width: 500px;
+  }
+
+  .card-title {
+    font-size: 3rem;
+  }
+
+  .card-message {
+    font-size: 1.5rem;
+  }
+
+  .card-seal {
+    font-size: 64px;
+  }
+
+  .silhouette-wrap {
+    width: 180px;
+    height: 180px;
+  }
+
+  .dance-title {
+    font-size: 2.4rem;
+  }
+
+  .dance-selector {
+    gap: 12px;
+  }
+
+  .dance-option {
+    padding: 16px 10px;
+  }
+
+  .celebrate-main {
+    font-size: 4rem;
+  }
+}
+
+/* Desktop */
 @media (min-width: 768px) {
-  .card {
-    max-width: 580px;
-    padding: 65px 50px;
+  .card-wrapper {
+    width: 540px;
+    height: 620px;
   }
 
-  .card h1 {
-    font-size: 3.8rem;
+  .card-title {
+    font-size: 3.4rem;
   }
 
-  .subtitle {
-    font-size: 1.9rem;
-    margin-bottom: 50px;
+  .card-message {
+    font-size: 1.65rem;
+    margin-bottom: 44px;
+  }
+
+  .card-seal {
+    font-size: 72px;
+    margin-bottom: 24px;
   }
 
   .btn {
-    padding: 20px 52px;
-    font-size: 1.3rem;
+    padding: 18px 52px;
+    font-size: 1.25rem;
   }
 
-  .envelope-icon {
-    font-size: 80px;
-  }
-
-  .celebrate-title {
-    font-size: 3.5rem;
-  }
-
-  .details-container {
-    max-width: 550px;
-  }
-
-  .carousel-wrapper {
+  .silhouette-wrap {
+    width: 200px;
     height: 200px;
   }
 
-  .carousel {
-    width: 150px;
-    height: 150px;
+  .dance-title {
+    font-size: 2.8rem;
   }
 
-  .carousel img {
-    width: 150px;
-    height: 150px;
+  .dance-selector {
+    max-width: 520px;
+    gap: 14px;
   }
 
-  .carousel img:nth-child(1) { transform: rotateY(0deg)    translateZ(220px); }
-  .carousel img:nth-child(2) { transform: rotateY(72deg)   translateZ(220px); }
-  .carousel img:nth-child(3) { transform: rotateY(144deg)  translateZ(220px); }
-  .carousel img:nth-child(4) { transform: rotateY(216deg)  translateZ(220px); }
-  .carousel img:nth-child(5) { transform: rotateY(288deg)  translateZ(220px); }
+  .dance-option {
+    padding: 18px 12px;
+    gap: 6px;
+  }
+
+  .dance-icon {
+    font-size: 2rem;
+  }
+
+  .dance-name {
+    font-size: 0.9rem;
+  }
+
+  .dance-desc {
+    font-size: 0.7rem;
+  }
+
+  .btn-lockin {
+    padding: 18px 56px;
+    font-size: 1.15rem;
+  }
+
+  .celebrate-main {
+    font-size: 4.5rem;
+  }
+
+  .celebrate-dance-name {
+    font-size: 1.8rem;
+  }
+}
+
+/* Large desktop */
+@media (min-width: 1024px) and (min-height: 800px) {
+  .silhouette-wrap {
+    width: 220px;
+    height: 220px;
+  }
+
+  .dance-content {
+    gap: 20px;
+  }
 }
