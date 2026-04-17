@@ -136,7 +136,9 @@ body {
    PAGE 1: ANNIVERSARY CARD
    ============================================ */
 #page-card {
-  background: linear-gradient(135deg, #1a0a1e 0%, #2a1a3e 30%, #1a1a3e 60%, #0a1a2e 100%);
+  background:
+    linear-gradient(135deg, rgba(26,10,30,0.55) 0%, rgba(42,26,62,0.5) 30%, rgba(26,26,62,0.5) 60%, rgba(10,26,46,0.55) 100%),
+    url('images/main-image.jpg') center/cover no-repeat;
 }
 
 .card-scene {
@@ -341,8 +343,11 @@ body {
 .dance-bg-layer {
   position: absolute;
   inset: 0;
-  transition: opacity 1s ease;
+  transition: opacity 1.2s ease;
   z-index: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 #dance-bg-1 {
