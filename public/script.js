@@ -18,6 +18,7 @@ const DANCE_STYLES = {
   salsa: {
     name: 'Salsa',
     image: 'images/latin.jpg',
+    bgPos: 'center top',
     overlay: 'linear-gradient(135deg, rgba(122,24,0,0.6), rgba(255,87,34,0.4))',
     accent: '#ff5722',
     accentDark: '#cc3300',
@@ -40,7 +41,8 @@ const DANCE_STYLES = {
   swing: {
     name: 'Swing',
     image: 'images/swing.jpg',
-    overlay: 'linear-gradient(135deg, rgba(58,31,0,0.6), rgba(184,134,11,0.4))',
+    bgPos: 'center center',
+    overlay: 'linear-gradient(135deg, rgba(58,31,0,0.5), rgba(184,134,11,0.35))',
     accent: '#daa520',
     accentDark: '#8b6914',
     accentGlow: 'rgba(218, 165, 32, 0.35)',
@@ -62,7 +64,8 @@ const DANCE_STYLES = {
   country: {
     name: 'Country',
     image: 'images/country.jpeg',
-    overlay: 'linear-gradient(135deg, rgba(62,30,8,0.6), rgba(160,82,45,0.4))',
+    bgPos: 'center top',
+    overlay: 'linear-gradient(135deg, rgba(62,30,8,0.5), rgba(160,82,45,0.35))',
     accent: '#cd853f',
     accentDark: '#8b5a2b',
     accentGlow: 'rgba(205, 133, 63, 0.35)',
@@ -171,13 +174,29 @@ function openCard() {
   const wrapper = document.getElementById('card-wrapper');
   wrapper.classList.add('opening');
 
-  // After doors swing, transition to dance page
+  // After card slides down, show dance page
   setTimeout(() => {
     document.getElementById('page-card').classList.remove('active');
     setTimeout(() => {
       document.getElementById('page-dance').classList.add('active');
+      createDanceSpotlights();
     }, 300);
-  }, 1200);
+  }, 800);
+}
+
+function createDanceSpotlights() {
+  const container = document.getElementById('dance-spotlights');
+  container.innerHTML = '';
+  for (let i = 0; i < 4; i++) {
+    const s = document.createElement('div');
+    s.className = 'dance-spot';
+    s.style.setProperty('--from', (-300 + i * 100) + 'px');
+    s.style.setProperty('--to', (window.innerWidth * 0.4 + i * 200) + 'px');
+    s.style.setProperty('--dur', (4 + Math.random() * 3) + 's');
+    s.style.setProperty('--delay', (i * 0.8) + 's');
+    s.style.width = (180 + Math.random() * 120) + 'px';
+    container.appendChild(s);
+  }
 }
 
 // ============================================
@@ -202,12 +221,11 @@ function selectDance(style) {
   const nextEl = document.getElementById('dance-bg-' + nextLayer);
   const currEl = document.getElementById('dance-bg-' + activeBgLayer);
   nextEl.style.backgroundImage = data.overlay + ', url(' + data.image + ')';
+  if (data.bgPos) nextEl.style.backgroundPosition = data.bgPos;
+  else nextEl.style.backgroundPosition = 'center center';
   nextEl.style.opacity = '1';
   currEl.style.opacity = '0';
   activeBgLayer = nextLayer;
-
-  // Update silhouette color
-  document.querySelector('.silhouette-wrap').style.color = data.silhouette;
 
   // Update title color
   document.getElementById('dance-title').style.color = data.text;
@@ -242,7 +260,7 @@ function lockIn() {
     const celebBg = document.getElementById('celebrate-bg');
     celebBg.style.backgroundImage = data.overlay + ', url(' + data.image + ')';
     celebBg.style.backgroundSize = 'cover';
-    celebBg.style.backgroundPosition = 'center';
+    celebBg.style.backgroundPosition = data.bgPos || 'center center';
 
     // Set dance name
     const nameEl = document.getElementById('celebrate-dance-name');

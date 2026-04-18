@@ -26,22 +26,17 @@
   <div id="page-card" class="page">
     <div class="card-scene">
       <div class="card-wrapper" id="card-wrapper">
-        <!-- Two doors that swing open -->
-        <div class="card-door card-door-left">
-          <div class="door-ornament"></div>
-        </div>
-        <div class="card-door card-door-right">
-          <div class="door-ornament"></div>
-        </div>
-        <!-- Card face content -->
-        <div class="card-face" id="card-face">
-          <div class="card-seal">&#x1F483;&#x1F57A;</div>
-          <h1 class="card-title">Happy Anniversary,<br>My Love</h1>
-          <div class="card-divider">
-            <span></span><span class="divider-heart">&#10084;</span><span></span>
+        <!-- Card with image -->
+        <div class="card-body">
+          <img class="card-photo" src="images/main-cut.jpg" alt="">
+          <div class="card-text-area">
+            <h1 class="card-title">Happy Anniversary,<br>My Love</h1>
+            <div class="card-divider">
+              <span></span><span class="divider-heart">&#10084;</span><span></span>
+            </div>
+            <p class="card-message">I love your body,<br>moving with my body&hellip;</p>
+            <button class="btn btn-open" id="btn-open">I want MORE</button>
           </div>
-          <p class="card-message">You&rsquo;re what moves me,<br>so let&rsquo;s get moving together.</p>
-          <button class="btn btn-open" id="btn-open">Open</button>
         </div>
       </div>
     </div>
@@ -54,37 +49,12 @@
     <div class="dance-bg-layer" id="dance-bg-2"></div>
     <div class="dance-overlay"></div>
 
+    <!-- Spotlights on dance page (before selection) -->
+    <div class="dance-spotlights" id="dance-spotlights"></div>
+
     <div class="dance-content" id="dance-content">
 
-      <!-- Dancing couple silhouette -->
-      <div class="silhouette-wrap">
-        <svg class="silhouette-svg" viewBox="0 0 300 480" fill="currentColor" aria-hidden="true">
-          <!-- Man (left figure) -->
-          <circle cx="118" cy="62" r="22"/>
-          <path d="M105,84 C102,100 100,122 102,152 L102,190
-                   L92,190 L78,305 L72,385 L94,387 L104,310 L112,250
-                   L120,310 L126,387 L148,385 L138,305 L126,190
-                   L116,190 L116,152 C118,122 116,100 113,84 Z"/>
-          <path d="M102,115 C82,126 58,136 34,143 L35,150
-                   C60,143 84,133 104,122 Z"/>
-          <path d="M116,115 C138,132 156,150 170,168 L176,162
-                   C162,145 142,128 118,110 Z"/>
-          <!-- Woman (right figure) -->
-          <ellipse cx="198" cy="55" rx="20" ry="22" transform="rotate(5,198,55)"/>
-          <path d="M185,77 C182,93 181,113 183,143 L183,170
-                   C167,248 155,328 150,388 L170,390
-                   C176,340 184,292 191,248
-                   C197,292 204,340 209,390 L229,388
-                   C224,328 212,248 197,170 L197,143
-                   C199,113 198,93 195,77 Z"/>
-          <path d="M183,107 C164,115 144,122 124,128 L126,134
-                   C146,128 166,121 185,113 Z"/>
-          <path d="M197,102 C217,92 236,85 256,80 L254,74
-                   C234,79 215,87 195,97 Z"/>
-        </svg>
-      </div>
-
-      <h2 class="dance-title" id="dance-title">Choose Our Dance</h2>
+      <h2 class="dance-title" id="dance-title">So let&rsquo;s go take some<br>dance lessons!</h2>
 
       <!-- Dance style selector grid -->
       <div class="dance-selector" id="dance-selector">

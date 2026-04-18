@@ -136,13 +136,10 @@ body {
    PAGE 1: ANNIVERSARY CARD
    ============================================ */
 #page-card {
-  background:
-    linear-gradient(135deg, rgba(26,10,30,0.55) 0%, rgba(42,26,62,0.5) 30%, rgba(26,26,62,0.5) 60%, rgba(10,26,46,0.55) 100%),
-    url('images/main-image.jpg') center/cover no-repeat;
+  background: #000;
 }
 
 .card-scene {
-  perspective: 1200px;
   width: 100%;
   height: 100%;
   display: flex;
@@ -152,103 +149,43 @@ body {
 
 .card-wrapper {
   position: relative;
-  width: 460px;
+  width: 420px;
   max-width: 88vw;
-  height: 560px;
-  max-height: 80vh;
-  transform-style: preserve-3d;
+  transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.6s ease 0.6s;
 }
 
-/* --- Card doors (the two halves) --- */
-.card-door {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  width: 50%;
-  background:
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 31px,
-      rgba(200, 180, 160, 0.06) 31px,
-      rgba(200, 180, 160, 0.06) 32px
-    ),
-    linear-gradient(180deg, #fdf8f0 0%, #faf3e8 30%, #f5ece0 100%);
-  background-blend-mode: multiply;
-  transition: transform 1.4s cubic-bezier(0.4, 0, 0.2, 1),
-              opacity 0.8s ease 0.4s;
-  transform-style: preserve-3d;
+/* --- Slide-down opening --- */
+.card-wrapper.opening {
+  transform: translateY(120vh);
+  opacity: 0;
+}
+
+/* --- Card body --- */
+.card-body {
+  background: linear-gradient(180deg, #fdf8f0, #f5ece0);
+  border-radius: 12px;
+  overflow: hidden;
   box-shadow:
-    0 2px 4px rgba(0,0,0,0.06),
-    0 8px 20px rgba(0,0,0,0.08),
-    0 30px 60px rgba(0,0,0,0.12);
+    0 4px 8px rgba(0,0,0,0.1),
+    0 16px 40px rgba(0,0,0,0.25),
+    0 40px 80px rgba(0,0,0,0.3);
   border: 1px solid rgba(200, 180, 160, 0.3);
+  animation: cardEntrance 1s ease-out;
 }
 
-.card-door-left {
-  left: 0;
-  transform-origin: left center;
-  border-radius: 8px 0 0 8px;
-  border-right: 1px dashed rgba(180, 160, 140, 0.25);
+.card-photo {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  max-height: 45vh;
 }
 
-.card-door-right {
-  right: 0;
-  transform-origin: right center;
-  border-radius: 0 8px 8px 0;
-  border-left: 1px dashed rgba(180, 160, 140, 0.25);
-}
-
-/* Ornamental inner border on each door */
-.door-ornament {
-  position: absolute;
-  top: 20px;
-  bottom: 20px;
-  border: 1px solid rgba(180, 150, 120, 0.2);
-  border-radius: 4px;
-}
-
-.card-door-left .door-ornament {
-  left: 20px;
-  right: 5px;
-}
-
-.card-door-right .door-ornament {
-  right: 20px;
-  left: 5px;
-}
-
-/* --- Opening animation --- */
-.card-wrapper.opening {}
-
-.card-wrapper.opening .card-door-left {
-  transform: rotateY(-130deg);
-  opacity: 0;
-}
-
-.card-wrapper.opening .card-door-right {
-  transform: rotateY(130deg);
-  opacity: 0;
-}
-
-.card-wrapper.opening .card-face {
-  opacity: 0;
-  transform: scale(0.9);
-  pointer-events: none;
-}
-
-/* --- Card face (text content on top of doors) --- */
-.card-face {
-  position: absolute;
-  inset: 0;
+.card-text-area {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 40px 30px;
-  z-index: 3;
-  transition: opacity 0.6s ease, transform 0.8s ease;
-  animation: cardEntrance 1s ease-out;
+  padding: 28px 30px 36px;
 }
 
 @keyframes cardEntrance {
@@ -262,23 +199,11 @@ body {
   }
 }
 
-.card-seal {
-  font-size: 56px;
-  margin-bottom: 20px;
-  animation: sealPulse 2.5s ease-in-out infinite;
-  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));
-}
-
-@keyframes sealPulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.08); }
-}
-
 .card-title {
   font-family: 'Dancing Script', cursive;
-  font-size: 2.6rem;
+  font-size: 2.4rem;
   color: #8b3060;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   line-height: 1.25;
   text-align: center;
 }
@@ -287,7 +212,7 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   width: 70%;
 }
 
@@ -305,9 +230,9 @@ body {
 
 .card-message {
   font-family: 'Dancing Script', cursive;
-  font-size: 1.35rem;
+  font-size: 1.3rem;
   color: #a06080;
-  margin-bottom: 36px;
+  margin-bottom: 28px;
   line-height: 1.5;
   text-align: center;
 }
@@ -345,9 +270,9 @@ body {
   inset: 0;
   transition: opacity 1.2s ease;
   z-index: 0;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
 }
 
 #dance-bg-1 {
@@ -383,18 +308,40 @@ body {
   overflow-y: auto;
 }
 
-/* --- Silhouette --- */
-.silhouette-wrap {
-  width: 160px;
-  height: 160px;
-  flex-shrink: 0;
-  transition: color 0.8s ease;
-  color: rgba(255, 255, 255, 0.1);
+/* --- Dance page spotlights (idle) --- */
+.dance-spotlights {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
 }
 
-.silhouette-svg {
-  width: 100%;
-  height: 100%;
+.dance-spot {
+  position: absolute;
+  width: 220px;
+  height: 120vh;
+  top: -10vh;
+  background: radial-gradient(ellipse at 50% 0%,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(255, 255, 255, 0.04) 30%,
+    transparent 70%);
+  animation: danceSpotSweep var(--dur, 5s) ease-in-out infinite alternate;
+  animation-delay: var(--delay, 0s);
+  opacity: 0;
+}
+
+@keyframes danceSpotSweep {
+  0% {
+    transform: translateX(var(--from, -200px)) rotate(-10deg);
+    opacity: 0;
+  }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% {
+    transform: translateX(var(--to, 100vw)) rotate(10deg);
+    opacity: 0;
+  }
 }
 
 /* --- Dance title --- */
@@ -636,11 +583,6 @@ body {
 
 /* Small phones */
 @media (max-height: 680px) {
-  .silhouette-wrap {
-    width: 110px;
-    height: 110px;
-  }
-
   .dance-title {
     font-size: 1.6rem;
   }
@@ -670,46 +612,32 @@ body {
     font-size: 0.95rem;
   }
 
-  .card-wrapper {
-    height: 480px;
-  }
-
   .card-title {
-    font-size: 2.2rem;
-  }
-
-  .card-seal {
-    font-size: 44px;
-    margin-bottom: 12px;
+    font-size: 2rem;
   }
 
   .card-message {
-    font-size: 1.15rem;
-    margin-bottom: 24px;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+  }
+
+  .card-text-area {
+    padding: 20px 24px 28px;
   }
 }
 
 /* Medium screens */
 @media (min-width: 480px) {
   .card-wrapper {
-    width: 500px;
+    width: 460px;
   }
 
   .card-title {
-    font-size: 3rem;
+    font-size: 2.8rem;
   }
 
   .card-message {
-    font-size: 1.5rem;
-  }
-
-  .card-seal {
-    font-size: 64px;
-  }
-
-  .silhouette-wrap {
-    width: 180px;
-    height: 180px;
+    font-size: 1.45rem;
   }
 
   .dance-title {
@@ -732,32 +660,21 @@ body {
 /* Desktop */
 @media (min-width: 768px) {
   .card-wrapper {
-    width: 540px;
-    height: 620px;
+    width: 500px;
   }
 
   .card-title {
-    font-size: 3.4rem;
+    font-size: 3.2rem;
   }
 
   .card-message {
-    font-size: 1.65rem;
-    margin-bottom: 44px;
-  }
-
-  .card-seal {
-    font-size: 72px;
-    margin-bottom: 24px;
+    font-size: 1.55rem;
+    margin-bottom: 36px;
   }
 
   .btn {
     padding: 18px 52px;
     font-size: 1.25rem;
-  }
-
-  .silhouette-wrap {
-    width: 200px;
-    height: 200px;
   }
 
   .dance-title {
@@ -802,11 +719,6 @@ body {
 
 /* Large desktop */
 @media (min-width: 1024px) and (min-height: 800px) {
-  .silhouette-wrap {
-    width: 220px;
-    height: 220px;
-  }
-
   .dance-content {
     gap: 20px;
   }

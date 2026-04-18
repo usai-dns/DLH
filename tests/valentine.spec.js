@@ -17,7 +17,7 @@ test.describe('Anniversary Card', () => {
     // Prompt gone, card visible
     await expect(page.locator('#page-card')).toHaveClass(/active/);
     await expect(page.locator('.card-title')).toContainText('Happy Anniversary');
-    await expect(page.locator('.card-message')).toContainText('moving together');
+    await expect(page.locator('.card-message')).toContainText('moving with my body');
     await expect(page.locator('#btn-open')).toBeVisible();
   });
 
@@ -30,7 +30,7 @@ test.describe('Anniversary Card', () => {
 
     // Dance page should be active
     await expect(page.locator('#page-dance')).toHaveClass(/active/);
-    await expect(page.locator('.dance-title')).toContainText('Choose Our Dance');
+    await expect(page.locator('.dance-title')).toContainText('dance lessons');
 
     // All 6 dance options present
     const options = await page.locator('.dance-option').count();
