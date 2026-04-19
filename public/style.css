@@ -479,15 +479,22 @@ body {
   line-height: 1.55;
 }
 
+.info-links {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
 .info-link {
   display: inline-block;
-  margin-top: 8px;
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--info-accent, rgba(255,255,255,0.7));
   text-decoration: none;
   opacity: 0.85;
   transition: opacity 0.2s ease;
+  white-space: nowrap;
 }
 
 .info-link:hover {

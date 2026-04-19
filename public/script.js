@@ -84,6 +84,8 @@ const DANCE_INFO = {
       schedule: 'Tuesdays 6:30pm beginner class, then social dancing until 10:30pm. Sundays 1pm beginner, 2pm intermediate, 3pm open practice.',
       desc: 'Argentine tango in close embrace. Beginner class assumes zero experience and rotates topics weekly so every session is standalone. The social dance after is low-pressure and very much a couples dance.',
       link: 'https://www.tangocolorado.org',
+      link2: 'https://www.denverturnverein.com/general-clean',
+      link2Label: 'Denver Turnverein',
     },
   ],
   salsa: [
@@ -93,6 +95,8 @@ const DANCE_INFO = {
       schedule: 'Mon 7pm & 8pm (salsa). Tue 7pm & 8pm (bachata). Wed 7pm & 8pm (mixed levels).',
       desc: 'Classes inside a Latin nightclub \u2014 learn patterns then stay and social dance after. No pre-registration, just show up. Each class is self-contained. Bring each other as partners.',
       link: 'https://salsawithsenoraandjig.com',
+      link2: 'https://coloradonewstyle.com',
+      link2Label: 'Colorado New Style',
     },
   ],
   ballroom: [
@@ -102,6 +106,8 @@ const DANCE_INFO = {
       schedule: 'Wednesdays 6:15pm beginner fundamentals (first Wed of each month is free), level 2 at 7pm, practice party at 8pm. 1st & 3rd Saturdays 7pm class then dance bash 8\u201311pm.',
       desc: 'Wednesday is the dedicated ballroom night with classes that assume zero experience. Saturday bash is a proper date night with a DJ and light refreshments. Beautiful 1921 ballroom with chandeliers.',
       link: 'https://www.stridesballroom.com/group-lessons',
+      link2: 'https://www.denverturnverein.com/general-clean',
+      link2Label: 'Denver Turnverein',
     },
   ],
   swing: [
@@ -111,6 +117,8 @@ const DANCE_INFO = {
       schedule: 'Fridays 7pm beginner Lindy Hop, dance party 8\u201311pm. Sundays 5:30pm West Coast Swing lessons, social dancing 6:30\u20139:30pm.',
       desc: "Friday Lindy is bouncy and athletic \u2014 think 1940s Harlem. Sunday West Coast Swing is smoother and danced to contemporary music. Both are standalone classes followed by social dancing. One of the friendliest dance scenes in Colorado.",
       link: 'https://www.coloradoswingdanceclub.com',
+      link2: 'https://www.rmswingdance.com',
+      link2Label: 'RM Swing Dance',
     },
   ],
   hiphop: [
@@ -120,6 +128,8 @@ const DANCE_INFO = {
       schedule: 'Classes every day of the week \u2014 hip hop, shuffle, reggaeton, R&B, Latin fusion, and more. Check weekly schedule for specific times.',
       desc: 'Choreography-based, not partner dancing \u2014 you learn routines side by side. Beginner to advanced, no contracts, pure drop-in. Very inclusive community.',
       link: 'https://www.elementalstudiosdenver.com/weeklyschedule',
+      link2: 'https://www.elementalstudiosdenver.com/bookclass',
+      link2Label: 'Book a Class',
     },
   ],
   country: [
@@ -129,6 +139,8 @@ const DANCE_INFO = {
       schedule: 'Thursdays 6:15pm class then country/western dance 7\u201310pm. Style rotates: two-step, waltz, line dance, cowboy cha cha.',
       desc: 'Upcoming: Apr 30 Line Dance \u00b7 May 7 & 14 West Coast Swing \u00b7 May 21 & 28 Two-Step. Also Whiskey Baron in Colorado Springs has couples lessons on Thursdays if you\u2019re down south.',
       link: 'https://www.denverturnverein.com/general-clean',
+      link2: 'https://thewhiskeybarondancehallandsaloon.com/dance-lessons.html',
+      link2Label: 'Whiskey Baron',
     },
   ],
 };
@@ -319,7 +331,12 @@ function showInfoPanel(style, data) {
     html += '<div class="info-venue-addr">' + v.addr + '</div>';
     html += '<div class="info-schedule">' + v.schedule + '</div>';
     if (v.desc) html += '<div class="info-desc">' + v.desc + '</div>';
-    if (v.link) html += '<a class="info-link" href="' + v.link + '" target="_blank" rel="noopener">More Info \u2192</a>';
+    if (v.link || v.link2) {
+      html += '<div class="info-links">';
+      if (v.link) html += '<a class="info-link" href="' + v.link + '" target="_blank" rel="noopener">More Info \u2192</a>';
+      if (v.link2) html += '<a class="info-link" href="' + v.link2 + '" target="_blank" rel="noopener">' + (v.link2Label || 'Check It Out') + ' \u2192</a>';
+      html += '</div>';
+    }
     html += '</div>';
   });
   html += '</div>';
