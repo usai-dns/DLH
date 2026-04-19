@@ -252,6 +252,17 @@ function selectDance(style) {
     btn.classList.toggle('selected', btn.dataset.style === style);
   });
 
+  // Swap the "Dance" word for the selected style name in the masthead
+  const danceWord = document.getElementById('mag-dance-word');
+  if (danceWord) {
+    danceWord.style.transition = 'opacity 0.25s ease';
+    danceWord.style.opacity = '0';
+    setTimeout(() => {
+      danceWord.textContent = data.name;
+      danceWord.style.opacity = '1';
+    }, 260);
+  }
+
   // Cross-fade background
   const nextLayer = activeBgLayer === 1 ? 2 : 1;
   const nextEl = document.getElementById('dance-bg-' + nextLayer);
@@ -435,12 +446,24 @@ function launchConfetti() {
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // Set card colors from style data
-  const cardColors = { tango: '#D72638', salsa: '#FF6B2B', ballroom: '#D4A017', swing: '#00A878', hiphop: '#C72CC8', country: '#1B98D4' };
+  // Set card colors + image + overlay from style data
   document.querySelectorAll('.dcard').forEach(btn => {
-    const c = cardColors[btn.dataset.style];
-    if (c) btn.style.setProperty('--card-color', c);
-    btn.style.background = c;
+    const data = DANCE_STYLES[btn.dataset.style];
+    if (!data) return;
+    btn.style.background = data.color;
+    btn.style.setProperty('--card-color', data.color);
+    // Set the image layer
+    const imgEl = btn.querySelector('.dcard-img');
+    if (imgEl) {
+      imgEl.style.backgroundImage = 'url(' + data.image + ')';
+      if (data.bgPos) imgEl.style.backgroundPosition = data.bgPos;
+      // Tint overlay matches color
+      const hex = data.color.replace('#','');
+      const r = parseInt(hex.substr(0,2), 16);
+      const g = parseInt(hex.substr(2,2), 16);
+      const b = parseInt(hex.substr(4,2), 16);
+      imgEl.style.setProperty('--card-overlay', `rgba(${r},${g},${b},0.35)`);
+    }
   });
 
   // Music prompt

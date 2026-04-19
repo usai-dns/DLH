@@ -397,19 +397,19 @@ body {
 }
 
 .dcard:hover {
-  transform: scale(1.03) rotate(0.5deg);
+  transform: scale(1.03);
   z-index: 2;
 }
 
 .dcard:active { transform: scale(0.98); }
 
-/* Heights — smaller for mobile friendliness */
-.dcard:nth-child(1) { height: 140px; transform: rotate(-0.6deg); }
-.dcard:nth-child(2) { height: 155px; transform: rotate(0.5deg); }
-.dcard:nth-child(3) { height: 130px; transform: rotate(-0.3deg); }
-.dcard:nth-child(4) { height: 145px; transform: rotate(0.7deg); }
-.dcard:nth-child(5) { height: 150px; transform: rotate(-0.4deg); }
-.dcard:nth-child(6) { height: 128px; transform: rotate(0.3deg); }
+/* All cards equal size */
+.dcard {
+  aspect-ratio: 3 / 2;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-image 0.5s ease;
+}
 
 /* Pop-in */
 .dcard:nth-child(1) { animation: popIn 0.4s cubic-bezier(0.16,1,0.3,1) 0s both; }
@@ -420,13 +420,36 @@ body {
 .dcard:nth-child(6) { animation: popIn 0.4s cubic-bezier(0.16,1,0.3,1) 0.30s both; }
 
 @keyframes popIn {
-  from { opacity: 0; transform: scale(0.9) rotate(-2deg); }
-  to { opacity: 1; transform: scale(1) rotate(0); }
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 .dcard.selected {
-  box-shadow: 0 0 0 3px #fff, 0 8px 24px rgba(0,0,0,0.3);
+  box-shadow: 0 0 0 3px #fff, 0 8px 24px rgba(0,0,0,0.4);
   z-index: 3;
+}
+
+/* Selected card: show dance image with color overlay */
+.dcard.selected .dcard-img {
+  opacity: 1;
+}
+
+.dcard-img {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.dcard-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--card-overlay, rgba(0,0,0,0.35));
 }
 
 /* Grain */
@@ -665,7 +688,9 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  max-height: 100vh;
+  max-width: 600px;
+  width: 100%;
 }
 
 @keyframes celebrateEntry {
@@ -734,12 +759,6 @@ body {
   .dcard-name { font-size: 22px; }
   .dcard-ghost { font-size: 42px; }
   .dcard-emoji { font-size: 30px; }
-  .dcard:nth-child(1) { height: 120px; }
-  .dcard:nth-child(2) { height: 130px; }
-  .dcard:nth-child(3) { height: 110px; }
-  .dcard:nth-child(4) { height: 120px; }
-  .dcard:nth-child(5) { height: 125px; }
-  .dcard:nth-child(6) { height: 108px; }
   .mag-title-script { font-size: clamp(36px, 11vw, 70px); }
   .info-editorial { padding: 18px 16px 22px; }
   .btn-lockin { font-size: 18px; padding: 14px 32px; }
@@ -751,24 +770,12 @@ body {
   .card-message { font-size: 1.35rem; }
   .dcard-name { font-size: 30px; }
   .dcard-ghost { font-size: 65px; }
-  .dcard:nth-child(1) { height: 160px; }
-  .dcard:nth-child(2) { height: 175px; }
-  .dcard:nth-child(3) { height: 148px; }
-  .dcard:nth-child(4) { height: 165px; }
-  .dcard:nth-child(5) { height: 170px; }
-  .dcard:nth-child(6) { height: 145px; }
 }
 
 @media (min-width: 768px) {
   .card-wrapper { width: 500px; }
   .card-title { font-size: 3.2rem; }
   .card-message { font-size: 1.55rem; margin-bottom: 36px; }
-  .dcard:nth-child(1) { height: 180px; }
-  .dcard:nth-child(2) { height: 200px; }
-  .dcard:nth-child(3) { height: 160px; }
-  .dcard:nth-child(4) { height: 175px; }
-  .dcard:nth-child(5) { height: 190px; }
-  .dcard:nth-child(6) { height: 155px; }
   .dcard-name { font-size: 34px; }
   .dcard-ghost { font-size: 80px; }
   .dcard-emoji { font-size: 44px; }
