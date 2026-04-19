@@ -69,10 +69,10 @@ test.describe('Anniversary Card', () => {
     await page.waitForTimeout(300);
     await expect(page.locator('[data-style="salsa"]')).toHaveClass(/selected/);
 
-    // Switch to blues
-    await page.locator('[data-style="blues"]').click();
+    // Switch to ballroom
+    await page.locator('[data-style="ballroom"]').click();
     await page.waitForTimeout(300);
-    await expect(page.locator('[data-style="blues"]')).toHaveClass(/selected/);
+    await expect(page.locator('[data-style="ballroom"]')).toHaveClass(/selected/);
     await expect(page.locator('[data-style="salsa"]')).not.toHaveClass(/selected/);
   });
 
@@ -110,7 +110,7 @@ test.describe('Anniversary Card', () => {
     await page.locator('#btn-open').click();
     await page.waitForTimeout(2000);
 
-    const styles = ['tango', 'salsa', 'blues', 'swing', 'hiphop', 'country'];
+    const styles = ['tango', 'salsa', 'ballroom', 'swing', 'hiphop', 'country'];
     for (const style of styles) {
       await expect(page.locator(`[data-style="${style}"]`)).toBeVisible();
     }

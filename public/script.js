@@ -27,16 +27,16 @@ const DANCE_STYLES = {
     silhouette: 'rgba(255, 255, 255, 0.10)',
     audio: 'music/Salsa.mp3',
   },
-  blues: {
-    name: 'Blues',
-    image: 'images/flamenco.jpg',
-    overlay: 'linear-gradient(135deg, rgba(7,7,32,0.7), rgba(26,26,94,0.55))',
-    accent: '#4a7af5',
-    accentDark: '#1a1a5e',
-    accentGlow: 'rgba(74, 122, 245, 0.35)',
-    text: '#87ceeb',
-    silhouette: 'rgba(135, 206, 235, 0.10)',
-    audio: 'music/blues.mp3',
+  ballroom: {
+    name: 'Ballroom',
+    image: 'images/ballroom.jpg',
+    bgPos: 'center center',
+    overlay: 'linear-gradient(135deg, rgba(20,10,30,0.6), rgba(80,40,90,0.45))',
+    accent: '#c084fc',
+    accentDark: '#7c3aed',
+    accentGlow: 'rgba(192, 132, 252, 0.35)',
+    text: '#e9d5ff',
+    audio: 'music/ballroom.mp3',
   },
   swing: {
     name: 'Swing',
@@ -73,6 +73,77 @@ const DANCE_STYLES = {
     silhouette: 'rgba(255, 248, 220, 0.10)',
     audio: 'music/country.wav',
   },
+};
+
+// ---- Dance info for each style ----
+const DANCE_INFO = {
+  tango: [
+    {
+      venue: 'Denver Turnverein',
+      addr: '1570 N Clarkson St, Denver',
+      schedule: 'Tuesdays 6:30\u20137:30pm beginner class, followed by milonga (social dancing) until 10:30pm. Sundays 1\u20134pm tango brunch with beginner class at 1pm, intermediate at 2pm, open practice at 3pm. 2nd Saturday of each month is a milonga from 8pm\u2013midnight.',
+      desc: 'Argentine tango in close embrace. Beginner class assumes zero experience and rotates topics so every week is standalone \u2014 you never feel behind. The milonga after class is where you actually dance with other people in a low-pressure social setting. Intimate, dramatic, very much a couples dance.',
+    },
+  ],
+  salsa: [
+    {
+      venue: 'La Rumba',
+      addr: '99 W 9th Ave, Denver',
+      schedule: 'Mondays, Tuesdays, Wednesdays at 7pm and 8pm. Monday is salsa, Tuesday is bachata, Wednesday mixes both at different levels.',
+      desc: 'Classes inside a Latin nightclub so you stay and social dance after. No pre-registration, just show up. Each class is self-contained. Expect a packed room, good music, and learning basic patterns you can use on the floor the same night. Bring each other as partners.',
+    },
+    {
+      venue: 'Colorado New Style',
+      addr: 'Denver',
+      schedule: '5 weekly drop-in classes at various times covering salsa, bachata, and reggaeton across 3 levels.',
+      desc: "Denver\u2019s dedicated Latin dance studio. Pre-registration required. More structured instruction than the nightclub classes, still drop-in friendly.",
+    },
+    {
+      venue: 'Bachata Denver',
+      addr: 'Denver',
+      schedule: 'Sundays 6:30pm, Mondays 7pm (beginner). Tuesdays 6:30pm (intermediate).',
+      desc: 'Bachata-focused studio with a strong community. Good if bachata specifically is the vibe you two gravitate toward.',
+    },
+  ],
+  ballroom: [
+    {
+      venue: 'Denver Turnverein',
+      addr: '1570 N Clarkson St, Denver',
+      schedule: 'Mondays 6:15\u20137pm beginner class, then dance party 7\u201310pm. Wednesdays 6:15\u20137pm absolute beginner fundamentals (first Wednesday of each month is free), then level 2 at 7pm and practice party at 8pm. 1st and 3rd Saturdays 7\u20138pm class then dance bash 8\u201311pm.',
+      desc: 'A different dance style rotates every few weeks \u2014 foxtrot, bachata, east coast swing, waltz. You learn basics of whichever style is up that week, then practice during the social dance after. Beautiful 1921 ballroom with chandeliers and a sprung wood floor. The Saturday bash includes light refreshments and a DJ.',
+      upcoming: 'Apr 20 & 27 Foxtrot \u00b7 May 4 & 11 Bachata \u00b7 May 18 & 25 East Coast Swing',
+    },
+  ],
+  swing: [
+    {
+      venue: 'Denver Turnverein',
+      addr: '1570 N Clarkson St, Denver',
+      schedule: "Fridays 7\u20138pm beginner Lindy Hop class, then dance party 8\u201311pm. Sundays 5:30\u20136:30pm West Coast Swing lessons (beginner through intermediate), then social dancing 6:30\u20139:30pm.",
+      desc: "Friday Lindy is high energy, bouncy, athletic swing \u2014 think 1940s Harlem. Beginner class each week is standalone so gaps don\u2019t matter. Sunday West Coast Swing is smoother, slower, more musical \u2014 danced to contemporary music rather than big band. Both end with social dancing. The Turnverein\u2019s Friday swing night is known as one of the friendliest dance scenes in Colorado.",
+    },
+  ],
+  hiphop: [
+    {
+      venue: 'Elemental Studios',
+      addr: '4668 Glencoe St, Denver',
+      schedule: 'Classes every day of the week at various times. Styles include hip hop, shuffle, reggaeton, R&B, Latin fusion, heels, Brazilian funk, contemporary, and more. Check their weekly schedule for specific times since it rotates by instructor.',
+      desc: "This is choreography-based, not partner dancing \u2014 you learn routines side by side instead of lead/follow. Beginner to advanced, very inclusive atmosphere. No contracts, pure drop-in. Book through MindBody.",
+    },
+  ],
+  country: [
+    {
+      venue: 'Denver Turnverein',
+      addr: '1570 N Clarkson St, Denver',
+      schedule: 'Thursdays 6:15\u20137pm class, then country/western dance 7\u201310pm. Style rotates: two-step, waltz, West Coast Swing, line dance, cowboy cha cha.',
+      upcoming: 'Apr 30 Line Dance \u00b7 May 7 & 14 West Coast Swing \u00b7 May 21 & 28 Two-Step',
+    },
+    {
+      venue: 'Whiskey Baron Dance Hall & Saloon',
+      addr: 'Colorado Springs',
+      schedule: 'Wednesdays & Fridays line dance lessons, Thursdays couples lessons. Evenings.',
+      desc: "Full dance hall and saloon \u2014 the most casual date-night option. Lesson then open dancing with drinks. If you\u2019re in the Springs instead of Denver, this is the spot.",
+    },
+  ],
 };
 
 // ---- Application state ----
@@ -238,8 +309,36 @@ function selectDance(style) {
   lockBtn.style.setProperty('--accent-dark', data.accentDark);
   lockBtn.style.setProperty('--accent-glow', data.accentGlow);
 
+  // Show info panel
+  showInfoPanel(style, data);
+
   // Start music for this style
   startMusic(style);
+}
+
+function showInfoPanel(style, data) {
+  const panel = document.getElementById('info-panel');
+  const info = DANCE_INFO[style];
+  if (!info || !info.length) {
+    panel.classList.remove('visible');
+    return;
+  }
+
+  let html = '<div class="info-card" style="--info-accent:' + data.accent + '">';
+  info.forEach((v, i) => {
+    if (i > 0) html += '<div class="info-divider"></div>';
+    html += '<div class="info-venue">';
+    html += '<div class="info-venue-name">' + v.venue + '</div>';
+    html += '<div class="info-venue-addr">' + v.addr + '</div>';
+    html += '<div class="info-schedule">' + v.schedule + '</div>';
+    if (v.desc) html += '<div class="info-desc">' + v.desc + '</div>';
+    if (v.upcoming) html += '<div class="info-upcoming">\u{1F4C5} Upcoming: ' + v.upcoming + '</div>';
+    html += '</div>';
+  });
+  html += '</div>';
+
+  panel.innerHTML = html;
+  panel.classList.add('visible');
 }
 
 // ============================================
