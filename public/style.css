@@ -13,14 +13,6 @@ body {
 }
 
 /* ============================================
-   GRAIN TEXTURE (reused across elements)
-   ============================================ */
-.grain-overlay {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E");
-  background-size: 150px;
-}
-
-/* ============================================
    SPARKLES
    ============================================ */
 .ambient-bg {
@@ -70,60 +62,56 @@ body {
 }
 
 /* ============================================
-   MUSIC PROMPT
+   MUSIC PROMPT — magazine style
    ============================================ */
 .music-prompt {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.6);
+  background: #0a0a0a;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 200;
-  backdrop-filter: blur(8px);
   animation: fadeIn 0.5s ease;
 }
 
 @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
 
 .music-prompt-card {
-  background: linear-gradient(180deg, #fdf8f0, #f5ece0);
-  border-radius: 16px;
-  padding: 44px 34px;
   text-align: center;
-  max-width: 340px;
-  width: 85%;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-  border: 1px solid rgba(200,180,160,0.3);
+  padding: 40px;
 }
 
 .music-prompt-card p {
-  font-family: 'Dancing Script', cursive;
-  font-size: 1.5rem;
-  color: #8b4060;
-  margin-bottom: 24px;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.8rem;
+  font-style: italic;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 32px;
 }
 
 .music-prompt-card button {
-  padding: 14px 44px;
-  border: none;
-  border-radius: 50px;
-  font-size: 1.1rem;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
+  padding: 16px 56px;
+  border: 2px solid rgba(255,255,255,0.3);
+  background: transparent;
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 22px;
+  letter-spacing: 6px;
+  color: #fff;
   cursor: pointer;
-  background: linear-gradient(135deg, #c47a9a, #8b4060);
-  color: white;
-  box-shadow: 0 6px 20px rgba(139,64,96,0.4);
-  transition: transform 0.2s ease;
+  transition: all 0.3s ease;
 }
 
-.music-prompt-card button:hover { transform: scale(1.05); }
+.music-prompt-card button:hover {
+  background: #fff;
+  color: #0a0a0a;
+  border-color: #fff;
+}
 
 /* ============================================
-   PAGE 1: ANNIVERSARY CARD
+   PAGE 1: ANNIVERSARY CARD — editorial style
    ============================================ */
-#page-card { background: #000; }
+#page-card { background: #0a0a0a; }
 
 .card-scene {
   width: 100%;
@@ -146,12 +134,22 @@ body {
 }
 
 .card-body {
-  background: linear-gradient(180deg, #fdf8f0, #f5ece0);
-  border-radius: 12px;
+  background: #FFFEF9;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1), 0 16px 40px rgba(0,0,0,0.25), 0 40px 80px rgba(0,0,0,0.3);
-  border: 1px solid rgba(200,180,160,0.3);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
   animation: cardEntrance 1s ease-out;
+  position: relative;
+}
+
+/* Grain on card */
+.card-body::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E");
+  background-size: 150px;
+  opacity: 0.3;
+  pointer-events: none;
 }
 
 .card-photo {
@@ -174,37 +172,39 @@ body {
 }
 
 .card-title {
-  font-family: 'Dancing Script', cursive;
-  font-size: 2.4rem;
-  color: #8b3060;
-  margin-bottom: 12px;
-  line-height: 1.25;
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 2.6rem;
+  color: #111;
+  margin-bottom: 8px;
+  line-height: 1;
   text-align: center;
+  letter-spacing: 2px;
 }
 
 .card-divider {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   width: 70%;
 }
 
 .card-divider span:first-child,
 .card-divider span:last-child {
   flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(180,140,160,0.4), transparent);
+  height: 2px;
+  background: #111;
 }
 
-.divider-heart { color: #c47a9a; font-size: 0.9rem; }
+.divider-heart { color: #D72638; font-size: 0.9rem; }
 
 .card-message {
-  font-family: 'Dancing Script', cursive;
-  font-size: 1.3rem;
-  color: #a06080;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.2rem;
+  font-style: italic;
+  color: #555;
   margin-bottom: 28px;
-  line-height: 1.5;
+  line-height: 1.6;
   text-align: center;
 }
 
@@ -214,7 +214,6 @@ body {
 .btn {
   padding: 16px 44px;
   border: none;
-  border-radius: 50px;
   font-size: 1.15rem;
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
@@ -223,19 +222,25 @@ body {
 }
 
 .btn-open {
-  background: linear-gradient(135deg, #c47a9a, #8b3060);
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 20px;
+  letter-spacing: 4px;
+  background: #D72638;
   color: white;
-  box-shadow: 0 6px 24px rgba(139,48,96,0.4);
+  border: none;
+  padding: 16px 52px;
 }
 
 .btn-open:hover {
-  transform: scale(1.06);
-  box-shadow: 0 8px 30px rgba(139,48,96,0.55);
+  transform: scale(1.04);
+  box-shadow: 0 4px 20px rgba(215,38,56,0.4);
 }
 
 /* ============================================
-   PAGE 2: DANCE SELECTION — Magazine Style
+   PAGE 2: DANCE SELECTION
    ============================================ */
+
+/* Background layers — image shows through */
 .dance-bg-layer {
   position: absolute;
   inset: 0;
@@ -253,12 +258,14 @@ body {
 
 #dance-bg-2 { opacity: 0; }
 
+/* Lighter overlay so image shows through */
 .dance-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.45);
+  background: rgba(0,0,0,0.25);
   z-index: 1;
   pointer-events: none;
+  transition: background 0.8s ease;
 }
 
 /* Spotlights */
@@ -301,36 +308,36 @@ body {
 .dance-content {
   max-width: 600px;
   margin: 0 auto;
-  padding: 36px 20px 60px;
+  padding: 28px 16px 48px;
 }
 
 /* ============================================
    MAGAZINE MASTHEAD
    ============================================ */
 .mag-masthead {
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .mag-dateline {
   font-family: 'Bebas Neue', Impact, sans-serif;
   font-size: 11px;
   letter-spacing: 6px;
-  color: rgba(255,255,255,0.4);
-  margin-bottom: 12px;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 8px;
 }
 
 .mag-title-fill {
   font-family: 'Bebas Neue', Impact, sans-serif;
-  font-size: clamp(60px, 15vw, 110px);
-  line-height: 0.82;
+  font-size: clamp(52px, 14vw, 100px);
+  line-height: 0.85;
   color: #fff;
   letter-spacing: -1px;
 }
 
 .mag-title-stroke {
   font-family: 'Bebas Neue', Impact, sans-serif;
-  font-size: clamp(60px, 15vw, 110px);
-  line-height: 0.82;
+  font-size: clamp(52px, 14vw, 100px);
+  line-height: 0.85;
   letter-spacing: -1px;
   -webkit-text-stroke: 2px #fff;
   color: transparent;
@@ -338,39 +345,39 @@ body {
 
 .mag-title-script {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(50px, 13vw, 96px);
+  font-size: clamp(44px, 12vw, 88px);
   font-style: italic;
   font-weight: 400;
   color: #D72638;
   line-height: 1;
-  margin-top: -4px;
+  margin-top: -2px;
 }
 
 .mag-rule {
   width: 100%;
   height: 2px;
-  background: rgba(255,255,255,0.6);
-  margin: 16px 0 6px;
+  background: rgba(255,255,255,0.5);
+  margin: 14px 0 5px;
 }
 
 .mag-sub {
   display: flex;
   justify-content: space-between;
   font-family: 'DM Sans', sans-serif;
-  font-size: 10px;
+  font-size: 9px;
   letter-spacing: 2px;
-  color: rgba(255,255,255,0.35);
+  color: rgba(255,255,255,0.3);
   text-transform: uppercase;
 }
 
 /* ============================================
-   CARD GRID — Magazine tiles
+   CARD GRID
    ============================================ */
 .dance-selector {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 16px;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 
 .dcard {
@@ -381,11 +388,12 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 16px 18px;
-  transition: transform 0.2s ease;
+  padding: 14px 16px;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
   font-family: inherit;
   text-align: left;
   outline: none;
+  background: var(--card-color, #444);
 }
 
 .dcard:hover {
@@ -395,18 +403,15 @@ body {
 
 .dcard:active { transform: scale(0.98); }
 
-/* Per-card colors and heights set via CSS custom props from JS */
-.dcard { background: var(--card-color, #444); }
+/* Heights — smaller for mobile friendliness */
+.dcard:nth-child(1) { height: 140px; transform: rotate(-0.6deg); }
+.dcard:nth-child(2) { height: 155px; transform: rotate(0.5deg); }
+.dcard:nth-child(3) { height: 130px; transform: rotate(-0.3deg); }
+.dcard:nth-child(4) { height: 145px; transform: rotate(0.7deg); }
+.dcard:nth-child(5) { height: 150px; transform: rotate(-0.4deg); }
+.dcard:nth-child(6) { height: 128px; transform: rotate(0.3deg); }
 
-/* Staggered heights */
-.dcard:nth-child(1) { height: 180px; transform: rotate(-0.8deg); }
-.dcard:nth-child(2) { height: 200px; transform: rotate(0.6deg); }
-.dcard:nth-child(3) { height: 160px; transform: rotate(-0.3deg); }
-.dcard:nth-child(4) { height: 175px; transform: rotate(0.9deg); }
-.dcard:nth-child(5) { height: 190px; transform: rotate(-0.5deg); }
-.dcard:nth-child(6) { height: 158px; transform: rotate(0.4deg); }
-
-/* Pop-in animation */
+/* Pop-in */
 .dcard:nth-child(1) { animation: popIn 0.4s cubic-bezier(0.16,1,0.3,1) 0s both; }
 .dcard:nth-child(2) { animation: popIn 0.4s cubic-bezier(0.16,1,0.3,1) 0.06s both; }
 .dcard:nth-child(3) { animation: popIn 0.4s cubic-bezier(0.16,1,0.3,1) 0.12s both; }
@@ -419,13 +424,12 @@ body {
   to { opacity: 1; transform: scale(1) rotate(0); }
 }
 
-/* Selected state ring */
 .dcard.selected {
   box-shadow: 0 0 0 3px #fff, 0 8px 24px rgba(0,0,0,0.3);
   z-index: 3;
 }
 
-/* Grain on card */
+/* Grain */
 .dcard-grain {
   position: absolute;
   inset: 0;
@@ -436,13 +440,12 @@ body {
   pointer-events: none;
 }
 
-/* Ghost name bleeding out */
 .dcard-ghost {
   position: absolute;
-  top: -8px;
+  top: -6px;
   right: -4px;
   font-family: 'Bebas Neue', Impact, sans-serif;
-  font-size: 70px;
+  font-size: 55px;
   line-height: 0.85;
   color: rgba(0,0,0,0.1);
   letter-spacing: -1px;
@@ -451,23 +454,21 @@ body {
   white-space: nowrap;
 }
 
-/* Emoji floating */
 .dcard-emoji {
   position: absolute;
-  top: 14px;
-  right: 14px;
-  font-size: 42px;
+  top: 12px;
+  right: 12px;
+  font-size: 36px;
   transform: rotate(12deg);
   filter: drop-shadow(2px 3px 0 rgba(0,0,0,0.12));
   pointer-events: none;
 }
 
-/* Front label */
 .dcard-front { position: relative; z-index: 1; }
 
 .dcard-name {
   font-family: 'Bebas Neue', Impact, sans-serif;
-  font-size: 30px;
+  font-size: 26px;
   color: #fff;
   letter-spacing: 2px;
   line-height: 0.95;
@@ -476,14 +477,14 @@ body {
 
 .dcard-tag {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 13px;
+  font-size: 12px;
   font-style: italic;
-  color: rgba(255,255,255,0.65);
-  margin-top: 3px;
+  color: rgba(255,255,255,0.6);
+  margin-top: 2px;
 }
 
 /* ============================================
-   EDITORIAL INFO BLOCK (inline, not modal)
+   EDITORIAL INFO BLOCK
    ============================================ */
 .info-block {
   max-height: 0;
@@ -498,15 +499,13 @@ body {
 }
 
 .info-editorial {
-  background: rgba(255,254,249,0.95);
-  border-radius: 4px;
-  padding: 28px 28px 32px;
+  background: rgba(255,254,249,0.93);
+  padding: 24px 24px 28px;
   position: relative;
   overflow: hidden;
   margin-bottom: 4px;
 }
 
-/* Grain on info block */
 .info-editorial::before {
   content: '';
   position: absolute;
@@ -517,65 +516,63 @@ body {
   pointer-events: none;
 }
 
-/* Color stripe at top */
 .info-stripe {
-  height: 5px;
-  border-radius: 3px;
-  margin-bottom: 20px;
+  height: 4px;
+  margin-bottom: 16px;
 }
 
 .info-venue-name {
   font-family: 'Bebas Neue', Impact, sans-serif;
-  font-size: 22px;
+  font-size: 20px;
   letter-spacing: 2px;
   color: #111;
 }
 
 .info-venue-addr {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 13px;
+  font-size: 12px;
   font-style: italic;
   color: #999;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .info-schedule-wrap {
   display: flex;
-  gap: 14px;
-  margin-bottom: 22px;
+  gap: 12px;
+  margin-bottom: 18px;
 }
 
 .info-schedule-bar {
-  width: 5px;
-  border-radius: 3px;
+  width: 4px;
+  border-radius: 2px;
   flex-shrink: 0;
 }
 
 .info-schedule-text {
   font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  line-height: 1.8;
+  font-size: 13px;
+  line-height: 1.7;
   color: #222;
   font-weight: 500;
 }
 
 .info-desc-text {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 15px;
-  line-height: 1.8;
+  font-size: 14px;
+  line-height: 1.75;
   color: #444;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .info-links {
   display: flex;
-  gap: 20px;
+  gap: 18px;
   flex-wrap: wrap;
 }
 
 .info-ed-link {
   font-family: 'Bebas Neue', Impact, sans-serif;
-  font-size: 15px;
+  font-size: 14px;
   letter-spacing: 2px;
   text-decoration: none;
   position: relative;
@@ -585,16 +582,6 @@ body {
 
 .info-ed-link:hover { opacity: 0.7; }
 
-.info-ed-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  opacity: 0.4;
-}
-
 /* ============================================
    LOCK-IN BUTTON
    ============================================ */
@@ -602,15 +589,14 @@ body {
   display: block;
   width: 100%;
   max-width: 400px;
-  margin: 16px auto 0;
-  padding: 18px 48px;
-  border: 2px solid rgba(255,255,255,0.2);
+  margin: 12px auto 0;
+  padding: 16px 40px;
+  border: 2px solid rgba(255,255,255,0.15);
   border-radius: 0;
-  background: rgba(255,255,255,0.06);
-  backdrop-filter: blur(8px);
-  color: rgba(255,255,255,0.3);
+  background: transparent;
+  color: rgba(255,255,255,0.25);
   font-family: 'Bebas Neue', Impact, sans-serif;
-  font-size: 22px;
+  font-size: 20px;
   letter-spacing: 4px;
   cursor: not-allowed;
   transition: all 0.4s ease;
@@ -621,7 +607,6 @@ body {
   color: #fff;
   border-color: var(--accent, #fff);
   background: var(--accent, rgba(255,255,255,0.15));
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
 }
 
 .btn-lockin.enabled:hover {
@@ -630,8 +615,12 @@ body {
 }
 
 /* ============================================
-   PAGE 3: CELEBRATION
+   PAGE 3: CELEBRATION — single viewport, no scroll
    ============================================ */
+#page-celebrate {
+  overflow: hidden;
+}
+
 .celebrate-bg {
   position: absolute;
   inset: 0;
@@ -672,6 +661,11 @@ body {
   text-align: center;
   animation: celebrateEntry 1.2s ease-out;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
 @keyframes celebrateEntry {
@@ -684,32 +678,33 @@ body {
   font-family: 'Bebas Neue', Impact, sans-serif;
   font-size: clamp(48px, 12vw, 80px);
   letter-spacing: 3px;
-  text-shadow: 0 4px 20px rgba(0,0,0,0.4);
-  margin-bottom: 20px;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  margin-bottom: 16px;
 }
 
 .celebrate-dance-name {
   font-family: 'Bebas Neue', Impact, sans-serif;
-  font-size: 28px;
+  font-size: 24px;
   letter-spacing: 6px;
-  margin-bottom: 16px;
-  padding: 12px 32px;
+  margin-bottom: 14px;
+  padding: 10px 28px;
   border: 2px solid rgba(255,255,255,0.3);
   display: inline-block;
-  background: rgba(255,255,255,0.08);
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(6px);
 }
 
 .celebrate-sub {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-style: italic;
   opacity: 0.85;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  margin-bottom: 24px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  margin-bottom: 20px;
 }
 
 .celebrate-hearts {
-  font-size: 3rem;
+  font-size: 2.5rem;
   animation: heartBeat 1.2s ease-in-out infinite;
 }
 
@@ -736,29 +731,46 @@ body {
    RESPONSIVE
    ============================================ */
 @media (max-width: 380px) {
-  .dcard-name { font-size: 24px; }
-  .dcard-ghost { font-size: 50px; }
-  .dcard-emoji { font-size: 34px; }
-  .dcard:nth-child(1) { height: 150px; }
-  .dcard:nth-child(2) { height: 170px; }
-  .dcard:nth-child(3) { height: 140px; }
-  .dcard:nth-child(4) { height: 150px; }
-  .dcard:nth-child(5) { height: 160px; }
-  .dcard:nth-child(6) { height: 135px; }
-  .info-editorial { padding: 20px 18px 24px; }
+  .dcard-name { font-size: 22px; }
+  .dcard-ghost { font-size: 42px; }
+  .dcard-emoji { font-size: 30px; }
+  .dcard:nth-child(1) { height: 120px; }
+  .dcard:nth-child(2) { height: 130px; }
+  .dcard:nth-child(3) { height: 110px; }
+  .dcard:nth-child(4) { height: 120px; }
+  .dcard:nth-child(5) { height: 125px; }
+  .dcard:nth-child(6) { height: 108px; }
+  .mag-title-script { font-size: clamp(36px, 11vw, 70px); }
+  .info-editorial { padding: 18px 16px 22px; }
+  .btn-lockin { font-size: 18px; padding: 14px 32px; }
 }
 
 @media (min-width: 480px) {
   .card-wrapper { width: 460px; }
-  .card-title { font-size: 2.8rem; }
-  .card-message { font-size: 1.45rem; }
-  .dcard-name { font-size: 34px; }
-  .dcard-ghost { font-size: 80px; }
+  .card-title { font-size: 3rem; }
+  .card-message { font-size: 1.35rem; }
+  .dcard-name { font-size: 30px; }
+  .dcard-ghost { font-size: 65px; }
+  .dcard:nth-child(1) { height: 160px; }
+  .dcard:nth-child(2) { height: 175px; }
+  .dcard:nth-child(3) { height: 148px; }
+  .dcard:nth-child(4) { height: 165px; }
+  .dcard:nth-child(5) { height: 170px; }
+  .dcard:nth-child(6) { height: 145px; }
 }
 
 @media (min-width: 768px) {
   .card-wrapper { width: 500px; }
   .card-title { font-size: 3.2rem; }
   .card-message { font-size: 1.55rem; margin-bottom: 36px; }
-  .btn { padding: 18px 52px; font-size: 1.25rem; }
+  .dcard:nth-child(1) { height: 180px; }
+  .dcard:nth-child(2) { height: 200px; }
+  .dcard:nth-child(3) { height: 160px; }
+  .dcard:nth-child(4) { height: 175px; }
+  .dcard:nth-child(5) { height: 190px; }
+  .dcard:nth-child(6) { height: 155px; }
+  .dcard-name { font-size: 34px; }
+  .dcard-ghost { font-size: 80px; }
+  .dcard-emoji { font-size: 44px; }
+  .celebrate-dance-name { font-size: 28px; }
 }
