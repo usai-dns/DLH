@@ -30,10 +30,10 @@ test.describe('Anniversary Card', () => {
 
     // Dance page should be active
     await expect(page.locator('#page-dance')).toHaveClass(/active/);
-    await expect(page.locator('.dance-title')).toContainText('dance lessons');
+    await expect(page.locator('.mag-title-script')).toContainText('Dance Lessons');
 
     // All 6 dance options present
-    const options = await page.locator('.dance-option').count();
+    const options = await page.locator('.dcard').count();
     expect(options).toBe(6);
   });
 

@@ -6,12 +6,12 @@
   <title>Happy Anniversary, Hallie</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Dancing+Script:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Intro prompt — user interaction unlocks audio -->
+  <!-- Intro prompt -->
   <div class="music-prompt" id="music-prompt">
     <div class="music-prompt-card">
       <p>I have something for you...</p>
@@ -26,7 +26,6 @@
   <div id="page-card" class="page">
     <div class="card-scene">
       <div class="card-wrapper" id="card-wrapper">
-        <!-- Card with image -->
         <div class="card-body">
           <img class="card-photo" src="images/main-cut.png" alt="">
           <div class="card-text-area">
@@ -44,56 +43,91 @@
 
   <!-- ===== Page 2: Dance Selection ===== -->
   <div id="page-dance" class="page">
-    <!-- Two background layers for cross-fade transitions -->
     <div class="dance-bg-layer" id="dance-bg-1"></div>
     <div class="dance-bg-layer" id="dance-bg-2"></div>
     <div class="dance-overlay"></div>
-
-    <!-- Spotlights on dance page (before selection) -->
     <div class="dance-spotlights" id="dance-spotlights"></div>
 
-    <div class="dance-content" id="dance-content">
+    <div class="dance-scroll" id="dance-scroll">
+      <div class="dance-content" id="dance-content">
 
-      <h2 class="dance-title" id="dance-title">So let&rsquo;s go take some<br>dance lessons!</h2>
+        <!-- Magazine masthead -->
+        <div class="mag-masthead">
+          <div class="mag-dateline">DENVER, COLORADO &middot; 2026</div>
+          <div class="mag-title-fill">LET&rsquo;S GO</div>
+          <div class="mag-title-stroke">TAKE SOME</div>
+          <div class="mag-title-script">Dance Lessons</div>
+          <div class="mag-rule"></div>
+          <div class="mag-sub">
+            <span>Drop-in friendly</span>
+            <span>No commitment</span>
+            <span>Tap to explore</span>
+          </div>
+        </div>
 
-      <!-- Dance style selector grid -->
-      <div class="dance-selector" id="dance-selector">
-        <button class="dance-option" data-style="tango">
-          <span class="dance-icon">&#x1F339;</span>
-          <span class="dance-name">Tango</span>
-          <span class="dance-desc">Sexy Closeness</span>
-        </button>
-        <button class="dance-option" data-style="salsa">
-          <span class="dance-icon">&#x1F336;&#xFE0F;</span>
-          <span class="dance-name">Salsa</span>
-          <span class="dance-desc">Sweaty Hip Swaying</span>
-        </button>
-        <button class="dance-option" data-style="ballroom">
-          <span class="dance-icon">&#x1F483;</span>
-          <span class="dance-name">Ballroom</span>
-          <span class="dance-desc">Elegant &amp; Classic</span>
-        </button>
-        <button class="dance-option" data-style="swing">
-          <span class="dance-icon">&#x1F3BA;</span>
-          <span class="dance-name">Swing</span>
-          <span class="dance-desc">Get Tossed Around</span>
-        </button>
-        <button class="dance-option" data-style="hiphop">
-          <span class="dance-icon">&#x1F3A4;</span>
-          <span class="dance-name">Hip Hop</span>
-          <span class="dance-desc">Cuz We Funky</span>
-        </button>
-        <button class="dance-option" data-style="country">
-          <span class="dance-icon">&#x1F920;</span>
-          <span class="dance-name">Country</span>
-          <span class="dance-desc">Because Montana</span>
-        </button>
+        <!-- Card grid -->
+        <div class="dance-selector" id="dance-selector">
+          <button class="dcard" data-style="tango">
+            <div class="dcard-grain"></div>
+            <div class="dcard-ghost">TANGO</div>
+            <div class="dcard-emoji">&#x1F339;</div>
+            <div class="dcard-front">
+              <div class="dcard-name">TANGO</div>
+              <div class="dcard-tag">Sexy Closeness</div>
+            </div>
+          </button>
+          <button class="dcard" data-style="salsa">
+            <div class="dcard-grain"></div>
+            <div class="dcard-ghost">SALSA</div>
+            <div class="dcard-emoji">&#x1F336;&#xFE0F;</div>
+            <div class="dcard-front">
+              <div class="dcard-name">SALSA</div>
+              <div class="dcard-tag">Sweaty Hip Swaying</div>
+            </div>
+          </button>
+          <button class="dcard" data-style="ballroom">
+            <div class="dcard-grain"></div>
+            <div class="dcard-ghost">BALL&shy;ROOM</div>
+            <div class="dcard-emoji">&#x1F483;</div>
+            <div class="dcard-front">
+              <div class="dcard-name">BALLROOM</div>
+              <div class="dcard-tag">Elegant &amp; Classic</div>
+            </div>
+          </button>
+          <button class="dcard" data-style="swing">
+            <div class="dcard-grain"></div>
+            <div class="dcard-ghost">SWING</div>
+            <div class="dcard-emoji">&#x1F3BA;</div>
+            <div class="dcard-front">
+              <div class="dcard-name">SWING</div>
+              <div class="dcard-tag">Get Tossed Around</div>
+            </div>
+          </button>
+          <button class="dcard" data-style="hiphop">
+            <div class="dcard-grain"></div>
+            <div class="dcard-ghost">HIP HOP</div>
+            <div class="dcard-emoji">&#x1F3A4;</div>
+            <div class="dcard-front">
+              <div class="dcard-name">HIP HOP</div>
+              <div class="dcard-tag">Cuz We Funky</div>
+            </div>
+          </button>
+          <button class="dcard" data-style="country">
+            <div class="dcard-grain"></div>
+            <div class="dcard-ghost">COUNTRY</div>
+            <div class="dcard-emoji">&#x1F920;</div>
+            <div class="dcard-front">
+              <div class="dcard-name">COUNTRY</div>
+              <div class="dcard-tag">Because Colorado</div>
+            </div>
+          </button>
+        </div>
+
+        <!-- Editorial info block (replaces old info panel) -->
+        <div class="info-block" id="info-block"></div>
+
+        <button class="btn btn-lockin" id="btn-lockin" disabled>Lock In Your Answer</button>
       </div>
-
-      <!-- Info panel (slides up when a style is selected) -->
-      <div class="info-panel" id="info-panel"></div>
-
-      <button class="btn btn-lockin" id="btn-lockin" disabled>Lock In Your Answer</button>
     </div>
   </div>
 
@@ -109,9 +143,7 @@
     </div>
   </div>
 
-  <!-- Effects canvas (confetti / sparkles) -->
   <canvas id="effects-canvas"></canvas>
-
   <script src="script.js"></script>
 </body>
 </html>

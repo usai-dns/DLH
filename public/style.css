@@ -1,24 +1,27 @@
 /* ============================================
-   ANNIVERSARY CARD — dennisloveshallie.com
+   ANNIVERSARY CARD — Magazine Edition
    ============================================ */
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
   min-height: 100vh;
-  background: #0a0a1a;
-  font-family: 'Poppins', sans-serif;
+  background: #0a0a0a;
+  font-family: 'DM Sans', sans-serif;
   overflow: hidden;
-  position: relative;
   color: #fff;
 }
 
 /* ============================================
-   AMBIENT FLOATING SPARKLES
+   GRAIN TEXTURE (reused across elements)
+   ============================================ */
+.grain-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E");
+  background-size: 150px;
+}
+
+/* ============================================
+   SPARKLES
    ============================================ */
 .ambient-bg {
   position: fixed;
@@ -34,27 +37,19 @@ body {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255,255,255,0.8);
   animation: sparkleFloat linear infinite;
-  box-shadow: 0 0 6px 2px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 6px 2px rgba(255,255,255,0.3);
 }
 
 @keyframes sparkleFloat {
-  0% {
-    transform: translateY(0) scale(1);
-    opacity: 0.8;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-110vh) scale(0.3);
-    opacity: 0;
-  }
+  0% { transform: translateY(0) scale(1); opacity: 0.8; }
+  50% { opacity: 1; }
+  100% { transform: translateY(-110vh) scale(0.3); opacity: 0; }
 }
 
 /* ============================================
-   PAGES — shared layout
+   PAGES
    ============================================ */
 .page {
   position: fixed;
@@ -75,12 +70,12 @@ body {
 }
 
 /* ============================================
-   MUSIC PROMPT OVERLAY
+   MUSIC PROMPT
    ============================================ */
 .music-prompt {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0,0,0,0.6);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -89,10 +84,7 @@ body {
   animation: fadeIn 0.5s ease;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
+@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
 
 .music-prompt-card {
   background: linear-gradient(180deg, #fdf8f0, #f5ece0);
@@ -101,10 +93,8 @@ body {
   text-align: center;
   max-width: 340px;
   width: 85%;
-  box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.4),
-    0 0 80px rgba(200, 150, 100, 0.08);
-  border: 1px solid rgba(200, 180, 160, 0.3);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  border: 1px solid rgba(200,180,160,0.3);
 }
 
 .music-prompt-card p {
@@ -124,20 +114,16 @@ body {
   cursor: pointer;
   background: linear-gradient(135deg, #c47a9a, #8b4060);
   color: white;
-  box-shadow: 0 6px 20px rgba(139, 64, 96, 0.4);
+  box-shadow: 0 6px 20px rgba(139,64,96,0.4);
   transition: transform 0.2s ease;
 }
 
-.music-prompt-card button:hover {
-  transform: scale(1.05);
-}
+.music-prompt-card button:hover { transform: scale(1.05); }
 
 /* ============================================
    PAGE 1: ANNIVERSARY CARD
    ============================================ */
-#page-card {
-  background: #000;
-}
+#page-card { background: #000; }
 
 .card-scene {
   width: 100%;
@@ -151,26 +137,20 @@ body {
   position: relative;
   width: 420px;
   max-width: 88vw;
-  transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1),
-              opacity 0.6s ease 0.6s;
+  transition: transform 1s cubic-bezier(0.4,0,0.2,1), opacity 0.6s ease 0.6s;
 }
 
-/* --- Slide-down opening --- */
 .card-wrapper.opening {
   transform: translateY(120vh);
   opacity: 0;
 }
 
-/* --- Card body --- */
 .card-body {
   background: linear-gradient(180deg, #fdf8f0, #f5ece0);
   border-radius: 12px;
   overflow: hidden;
-  box-shadow:
-    0 4px 8px rgba(0,0,0,0.1),
-    0 16px 40px rgba(0,0,0,0.25),
-    0 40px 80px rgba(0,0,0,0.3);
-  border: 1px solid rgba(200, 180, 160, 0.3);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1), 0 16px 40px rgba(0,0,0,0.25), 0 40px 80px rgba(0,0,0,0.3);
+  border: 1px solid rgba(200,180,160,0.3);
   animation: cardEntrance 1s ease-out;
 }
 
@@ -189,14 +169,8 @@ body {
 }
 
 @keyframes cardEntrance {
-  0% {
-    transform: scale(0.85) translateY(30px);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1) translateY(0);
-    opacity: 1;
-  }
+  0% { transform: scale(0.85) translateY(30px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
 }
 
 .card-title {
@@ -220,13 +194,10 @@ body {
 .card-divider span:last-child {
   flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(180, 140, 160, 0.4), transparent);
+  background: linear-gradient(90deg, transparent, rgba(180,140,160,0.4), transparent);
 }
 
-.divider-heart {
-  color: #c47a9a;
-  font-size: 0.9rem;
-}
+.divider-heart { color: #c47a9a; font-size: 0.9rem; }
 
 .card-message {
   font-family: 'Dancing Script', cursive;
@@ -254,16 +225,16 @@ body {
 .btn-open {
   background: linear-gradient(135deg, #c47a9a, #8b3060);
   color: white;
-  box-shadow: 0 6px 24px rgba(139, 48, 96, 0.4);
+  box-shadow: 0 6px 24px rgba(139,48,96,0.4);
 }
 
 .btn-open:hover {
   transform: scale(1.06);
-  box-shadow: 0 8px 30px rgba(139, 48, 96, 0.55);
+  box-shadow: 0 8px 30px rgba(139,48,96,0.55);
 }
 
 /* ============================================
-   PAGE 2: DANCE SELECTION
+   PAGE 2: DANCE SELECTION — Magazine Style
    ============================================ */
 .dance-bg-layer {
   position: absolute;
@@ -276,41 +247,21 @@ body {
 }
 
 #dance-bg-1 {
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  background: linear-gradient(135deg, #111 0%, #1a1a2e 50%, #111 100%);
   opacity: 1;
 }
 
-#dance-bg-2 {
-  opacity: 0;
-}
+#dance-bg-2 { opacity: 0; }
 
 .dance-overlay {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(ellipse at 50% 30%, transparent 0%, rgba(0,0,0,0.3) 100%);
+  background: rgba(0,0,0,0.45);
   z-index: 1;
   pointer-events: none;
 }
 
-.dance-content {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  max-width: 600px;
-  padding: 20px;
-  height: 100%;
-  justify-content: flex-start;
-  padding-top: 5vh;
-  gap: 14px;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* --- Dance page spotlights (idle) --- */
+/* Spotlights */
 .dance-spotlights {
   position: absolute;
   inset: 0;
@@ -324,227 +275,358 @@ body {
   width: 220px;
   height: 120vh;
   top: -10vh;
-  background: radial-gradient(ellipse at 50% 0%,
-    rgba(255, 255, 255, 0.12) 0%,
-    rgba(255, 255, 255, 0.04) 30%,
-    transparent 70%);
+  background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 30%, transparent 70%);
   animation: danceSpotSweep var(--dur, 5s) ease-in-out infinite alternate;
   animation-delay: var(--delay, 0s);
   opacity: 0;
 }
 
 @keyframes danceSpotSweep {
-  0% {
-    transform: translateX(var(--from, -200px)) rotate(-10deg);
-    opacity: 0;
-  }
+  0% { transform: translateX(var(--from, -200px)) rotate(-10deg); opacity: 0; }
   20% { opacity: 1; }
   80% { opacity: 1; }
-  100% {
-    transform: translateX(var(--to, 100vw)) rotate(10deg);
-    opacity: 0;
-  }
+  100% { transform: translateX(var(--to, 100vw)) rotate(10deg); opacity: 0; }
 }
 
-/* --- Dance title --- */
-.dance-title {
-  font-family: 'Dancing Script', cursive;
-  font-size: 2.2rem;
-  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
-  transition: color 0.8s ease;
-  text-align: center;
-  flex-shrink: 0;
+/* Scroll wrapper */
+.dance-scroll {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
-/* --- Dance selector grid --- */
+.dance-content {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 36px 20px 60px;
+}
+
+/* ============================================
+   MAGAZINE MASTHEAD
+   ============================================ */
+.mag-masthead {
+  margin-bottom: 24px;
+}
+
+.mag-dateline {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 11px;
+  letter-spacing: 6px;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 12px;
+}
+
+.mag-title-fill {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: clamp(60px, 15vw, 110px);
+  line-height: 0.82;
+  color: #fff;
+  letter-spacing: -1px;
+}
+
+.mag-title-stroke {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: clamp(60px, 15vw, 110px);
+  line-height: 0.82;
+  letter-spacing: -1px;
+  -webkit-text-stroke: 2px #fff;
+  color: transparent;
+}
+
+.mag-title-script {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(50px, 13vw, 96px);
+  font-style: italic;
+  font-weight: 400;
+  color: #D72638;
+  line-height: 1;
+  margin-top: -4px;
+}
+
+.mag-rule {
+  width: 100%;
+  height: 2px;
+  background: rgba(255,255,255,0.6);
+  margin: 16px 0 6px;
+}
+
+.mag-sub {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.35);
+  text-transform: uppercase;
+}
+
+/* ============================================
+   CARD GRID — Magazine tiles
+   ============================================ */
 .dance-selector {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
-  width: 100%;
-  max-width: 480px;
-  flex-shrink: 0;
+  margin-bottom: 16px;
 }
 
-.dance-option {
+.dcard {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  border: none;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  padding: 14px 8px;
-  border: 2px solid rgba(255, 255, 255, 0.15);
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(8px);
-  cursor: pointer;
-  transition: all 0.35s ease;
-  color: rgba(255, 255, 255, 0.8);
-  font-family: 'Poppins', sans-serif;
+  justify-content: flex-end;
+  padding: 16px 18px;
+  transition: transform 0.2s ease;
+  font-family: inherit;
+  text-align: left;
+  outline: none;
 }
 
-.dance-option:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.3);
-  transform: translateY(-2px);
+.dcard:hover {
+  transform: scale(1.03) rotate(0.5deg);
+  z-index: 2;
 }
 
-.dance-option.selected {
-  border-color: var(--accent, rgba(255, 255, 255, 0.6));
-  background: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1),
-              inset 0 0 20px rgba(255, 255, 255, 0.05);
-  transform: translateY(-3px) scale(1.03);
+.dcard:active { transform: scale(0.98); }
+
+/* Per-card colors and heights set via CSS custom props from JS */
+.dcard { background: var(--card-color, #444); }
+
+/* Staggered heights */
+.dcard:nth-child(1) { height: 180px; transform: rotate(-0.8deg); }
+.dcard:nth-child(2) { height: 200px; transform: rotate(0.6deg); }
+.dcard:nth-child(3) { height: 160px; transform: rotate(-0.3deg); }
+.dcard:nth-child(4) { height: 175px; transform: rotate(0.9deg); }
+.dcard:nth-child(5) { height: 190px; transform: rotate(-0.5deg); }
+.dcard:nth-child(6) { height: 158px; transform: rotate(0.4deg); }
+
+/* Pop-in animation */
+.dcard:nth-child(1) { animation: popIn 0.4s cubic-bezier(0.16,1,0.3,1) 0s both; }
+.dcard:nth-child(2) { animation: popIn 0.4s cubic-bezier(0.16,1,0.3,1) 0.06s both; }
+.dcard:nth-child(3) { animation: popIn 0.4s cubic-bezier(0.16,1,0.3,1) 0.12s both; }
+.dcard:nth-child(4) { animation: popIn 0.4s cubic-bezier(0.16,1,0.3,1) 0.18s both; }
+.dcard:nth-child(5) { animation: popIn 0.4s cubic-bezier(0.16,1,0.3,1) 0.24s both; }
+.dcard:nth-child(6) { animation: popIn 0.4s cubic-bezier(0.16,1,0.3,1) 0.30s both; }
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.9) rotate(-2deg); }
+  to { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+/* Selected state ring */
+.dcard.selected {
+  box-shadow: 0 0 0 3px #fff, 0 8px 24px rgba(0,0,0,0.3);
+  z-index: 3;
+}
+
+/* Grain on card */
+.dcard-grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E");
+  background-size: 100px;
+  mix-blend-mode: overlay;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Ghost name bleeding out */
+.dcard-ghost {
+  position: absolute;
+  top: -8px;
+  right: -4px;
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 70px;
+  line-height: 0.85;
+  color: rgba(0,0,0,0.1);
+  letter-spacing: -1px;
+  pointer-events: none;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* Emoji floating */
+.dcard-emoji {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  font-size: 42px;
+  transform: rotate(12deg);
+  filter: drop-shadow(2px 3px 0 rgba(0,0,0,0.12));
+  pointer-events: none;
+}
+
+/* Front label */
+.dcard-front { position: relative; z-index: 1; }
+
+.dcard-name {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 30px;
   color: #fff;
+  letter-spacing: 2px;
+  line-height: 0.95;
+  text-shadow: 1px 2px 0 rgba(0,0,0,0.12);
 }
 
-.dance-icon {
-  font-size: 1.8rem;
-  line-height: 1;
+.dcard-tag {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 13px;
+  font-style: italic;
+  color: rgba(255,255,255,0.65);
+  margin-top: 3px;
 }
 
-.dance-name {
-  font-weight: 600;
-  font-size: 0.85rem;
-  letter-spacing: 0.02em;
-}
-
-.dance-desc {
-  font-size: 0.65rem;
-  opacity: 0.65;
-  text-align: center;
-  line-height: 1.2;
-}
-
-/* --- Info Panel --- */
-.info-panel {
-  width: 100%;
-  max-width: 520px;
+/* ============================================
+   EDITORIAL INFO BLOCK (inline, not modal)
+   ============================================ */
+.info-block {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.5s ease, opacity 0.4s ease, margin 0.4s ease;
+  transition: max-height 0.5s ease, opacity 0.4s ease;
   opacity: 0;
-  margin: 0;
 }
 
-.info-panel.visible {
-  max-height: 600px;
+.info-block.visible {
+  max-height: 800px;
   opacity: 1;
-  margin: 4px 0;
 }
 
-.info-card {
-  background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 14px;
-  padding: 20px;
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 0.85rem;
-  line-height: 1.5;
+.info-editorial {
+  background: rgba(255,254,249,0.95);
+  border-radius: 4px;
+  padding: 28px 28px 32px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 4px;
 }
 
-.info-venue {
-  margin-bottom: 14px;
+/* Grain on info block */
+.info-editorial::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E");
+  background-size: 150px;
+  opacity: 0.3;
+  pointer-events: none;
 }
 
-.info-venue:last-child {
-  margin-bottom: 0;
+/* Color stripe at top */
+.info-stripe {
+  height: 5px;
+  border-radius: 3px;
+  margin-bottom: 20px;
 }
 
 .info-venue-name {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: #fff;
-  margin-bottom: 2px;
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 22px;
+  letter-spacing: 2px;
+  color: #111;
 }
 
 .info-venue-addr {
-  font-size: 0.75rem;
-  opacity: 0.55;
-  margin-bottom: 6px;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 13px;
+  font-style: italic;
+  color: #999;
+  margin-bottom: 20px;
 }
 
-.info-schedule {
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.75);
-  margin-bottom: 6px;
-  padding-left: 12px;
-  border-left: 2px solid var(--info-accent, rgba(255,255,255,0.25));
+.info-schedule-wrap {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 22px;
 }
 
-.info-desc {
-  font-size: 0.8rem;
-  opacity: 0.7;
-  line-height: 1.55;
+.info-schedule-bar {
+  width: 5px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.info-schedule-text {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #222;
+  font-weight: 500;
+}
+
+.info-desc-text {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 15px;
+  line-height: 1.8;
+  color: #444;
+  margin-bottom: 24px;
 }
 
 .info-links {
   display: flex;
-  gap: 16px;
+  gap: 20px;
   flex-wrap: wrap;
-  margin-top: 8px;
 }
 
-.info-link {
-  display: inline-block;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--info-accent, rgba(255,255,255,0.7));
+.info-ed-link {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 15px;
+  letter-spacing: 2px;
   text-decoration: none;
-  opacity: 0.85;
+  position: relative;
+  padding-bottom: 4px;
   transition: opacity 0.2s ease;
-  white-space: nowrap;
 }
 
-.info-link:hover {
-  opacity: 1;
-  text-decoration: underline;
+.info-ed-link:hover { opacity: 0.7; }
+
+.info-ed-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  opacity: 0.4;
 }
 
-.info-divider {
-  height: 1px;
-  background: rgba(255, 255, 255, 0.1);
-  margin: 12px 0;
-}
-
-/* --- Lock-In Button --- */
+/* ============================================
+   LOCK-IN BUTTON
+   ============================================ */
 .btn-lockin {
-  padding: 16px 48px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50px;
-  background: rgba(255, 255, 255, 0.08);
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  margin: 16px auto 0;
+  padding: 18px 48px;
+  border: 2px solid rgba(255,255,255,0.2);
+  border-radius: 0;
+  background: rgba(255,255,255,0.06);
   backdrop-filter: blur(8px);
-  color: rgba(255, 255, 255, 0.4);
-  font-size: 1.1rem;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
+  color: rgba(255,255,255,0.3);
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 22px;
+  letter-spacing: 4px;
   cursor: not-allowed;
   transition: all 0.4s ease;
-  flex-shrink: 0;
 }
 
 .btn-lockin.enabled {
   cursor: pointer;
   color: #fff;
   border-color: var(--accent, #fff);
-  background: linear-gradient(135deg,
-    var(--accent-dark, rgba(255,255,255,0.15)),
-    var(--accent, rgba(255,255,255,0.25)));
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3),
-              0 0 30px var(--accent-glow, rgba(255,255,255,0.1));
-  animation: lockInPulse 2s ease-in-out infinite;
+  background: var(--accent, rgba(255,255,255,0.15));
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
 }
 
 .btn-lockin.enabled:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4),
-              0 0 40px var(--accent-glow, rgba(255,255,255,0.2));
-}
-
-@keyframes lockInPulse {
-  0%, 100% { box-shadow: 0 4px 20px rgba(0,0,0,0.3), 0 0 20px var(--accent-glow, rgba(255,255,255,0.1)); }
-  50% { box-shadow: 0 4px 20px rgba(0,0,0,0.3), 0 0 40px var(--accent-glow, rgba(255,255,255,0.2)); }
+  transform: scale(1.03);
+  box-shadow: 0 6px 30px rgba(0,0,0,0.4);
 }
 
 /* ============================================
@@ -554,7 +636,8 @@ body {
   position: absolute;
   inset: 0;
   z-index: 0;
-  transition: background 0.5s ease;
+  background-size: cover;
+  background-position: center;
 }
 
 .spotlight-container {
@@ -570,27 +653,17 @@ body {
   width: 250px;
   height: 120vh;
   top: -10vh;
-  background: radial-gradient(ellipse at 50% 0%,
-    rgba(255, 255, 255, 0.18) 0%,
-    rgba(255, 255, 255, 0.06) 30%,
-    transparent 70%);
+  background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.06) 30%, transparent 70%);
   animation: spotlightSweep var(--sweep-dur, 4s) ease-in-out infinite alternate;
   animation-delay: var(--sweep-delay, 0s);
   opacity: 0;
-  transform-origin: top center;
 }
 
 @keyframes spotlightSweep {
-  0% {
-    transform: translateX(var(--start-x, -200px)) rotate(-15deg);
-    opacity: 0;
-  }
+  0% { transform: translateX(var(--start-x, -200px)) rotate(-15deg); opacity: 0; }
   15% { opacity: 1; }
   85% { opacity: 1; }
-  100% {
-    transform: translateX(var(--end-x, 100vw)) rotate(15deg);
-    opacity: 0;
-  }
+  100% { transform: translateX(var(--end-x, 100vw)) rotate(15deg); opacity: 0; }
 }
 
 .celebrate-content {
@@ -602,49 +675,36 @@ body {
 }
 
 @keyframes celebrateEntry {
-  0% {
-    transform: scale(0.5) translateY(40px);
-    opacity: 0;
-  }
-  60% {
-    transform: scale(1.05);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1) translateY(0);
-    opacity: 1;
-  }
+  0% { transform: scale(0.5) translateY(40px); opacity: 0; }
+  60% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
 }
 
 .celebrate-main {
-  font-family: 'Dancing Script', cursive;
-  font-size: 3.6rem;
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: clamp(48px, 12vw, 80px);
+  letter-spacing: 3px;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.4);
   margin-bottom: 20px;
-  line-height: 1.2;
 }
 
 .celebrate-dance-name {
-  font-family: 'Poppins', sans-serif;
-  font-size: 1.6rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 28px;
+  letter-spacing: 6px;
   margin-bottom: 16px;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   padding: 12px 32px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 50px;
+  border: 2px solid rgba(255,255,255,0.3);
   display: inline-block;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(6px);
+  background: rgba(255,255,255,0.08);
 }
 
 .celebrate-sub {
-  font-family: 'Dancing Script', cursive;
-  font-size: 1.6rem;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.4rem;
+  font-style: italic;
   opacity: 0.85;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
   margin-bottom: 24px;
 }
 
@@ -673,148 +733,32 @@ body {
 }
 
 /* ============================================
-   RESPONSIVE — mobile first
+   RESPONSIVE
    ============================================ */
-
-/* Small phones */
-@media (max-height: 680px) {
-  .dance-title {
-    font-size: 1.6rem;
-  }
-
-  .dance-option {
-    padding: 10px 6px;
-  }
-
-  .dance-icon {
-    font-size: 1.4rem;
-  }
-
-  .dance-name {
-    font-size: 0.75rem;
-  }
-
-  .dance-desc {
-    font-size: 0.55rem;
-  }
-
-  .dance-content {
-    gap: 10px;
-  }
-
-  .btn-lockin {
-    padding: 12px 36px;
-    font-size: 0.95rem;
-  }
-
-  .card-title {
-    font-size: 2rem;
-  }
-
-  .card-message {
-    font-size: 1.1rem;
-    margin-bottom: 20px;
-  }
-
-  .card-text-area {
-    padding: 20px 24px 28px;
-  }
+@media (max-width: 380px) {
+  .dcard-name { font-size: 24px; }
+  .dcard-ghost { font-size: 50px; }
+  .dcard-emoji { font-size: 34px; }
+  .dcard:nth-child(1) { height: 150px; }
+  .dcard:nth-child(2) { height: 170px; }
+  .dcard:nth-child(3) { height: 140px; }
+  .dcard:nth-child(4) { height: 150px; }
+  .dcard:nth-child(5) { height: 160px; }
+  .dcard:nth-child(6) { height: 135px; }
+  .info-editorial { padding: 20px 18px 24px; }
 }
 
-/* Medium screens */
 @media (min-width: 480px) {
-  .card-wrapper {
-    width: 460px;
-  }
-
-  .card-title {
-    font-size: 2.8rem;
-  }
-
-  .card-message {
-    font-size: 1.45rem;
-  }
-
-  .dance-title {
-    font-size: 2.4rem;
-  }
-
-  .dance-selector {
-    gap: 12px;
-  }
-
-  .dance-option {
-    padding: 16px 10px;
-  }
-
-  .celebrate-main {
-    font-size: 4rem;
-  }
+  .card-wrapper { width: 460px; }
+  .card-title { font-size: 2.8rem; }
+  .card-message { font-size: 1.45rem; }
+  .dcard-name { font-size: 34px; }
+  .dcard-ghost { font-size: 80px; }
 }
 
-/* Desktop */
 @media (min-width: 768px) {
-  .card-wrapper {
-    width: 500px;
-  }
-
-  .card-title {
-    font-size: 3.2rem;
-  }
-
-  .card-message {
-    font-size: 1.55rem;
-    margin-bottom: 36px;
-  }
-
-  .btn {
-    padding: 18px 52px;
-    font-size: 1.25rem;
-  }
-
-  .dance-title {
-    font-size: 2.8rem;
-  }
-
-  .dance-selector {
-    max-width: 520px;
-    gap: 14px;
-  }
-
-  .dance-option {
-    padding: 18px 12px;
-    gap: 6px;
-  }
-
-  .dance-icon {
-    font-size: 2rem;
-  }
-
-  .dance-name {
-    font-size: 0.9rem;
-  }
-
-  .dance-desc {
-    font-size: 0.7rem;
-  }
-
-  .btn-lockin {
-    padding: 18px 56px;
-    font-size: 1.15rem;
-  }
-
-  .celebrate-main {
-    font-size: 4.5rem;
-  }
-
-  .celebrate-dance-name {
-    font-size: 1.8rem;
-  }
-}
-
-/* Large desktop */
-@media (min-width: 1024px) and (min-height: 800px) {
-  .dance-content {
-    gap: 20px;
-  }
+  .card-wrapper { width: 500px; }
+  .card-title { font-size: 3.2rem; }
+  .card-message { font-size: 1.55rem; margin-bottom: 36px; }
+  .btn { padding: 18px 52px; font-size: 1.25rem; }
 }
