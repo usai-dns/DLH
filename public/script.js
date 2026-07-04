@@ -49,7 +49,7 @@ const DANCE_STYLES = {
     image: 'images/hiphop.jpg',
     overlay: 'linear-gradient(135deg, rgba(10,0,10,0.6), rgba(60,10,60,0.45))',
     text: '#f0d0ff',
-    audio: 'music/hiphop.wav',
+    audio: 'music/hiphop.mp3',
   },
   country: {
     name: 'Country',
@@ -59,7 +59,7 @@ const DANCE_STYLES = {
     bgPos: 'center top',
     overlay: 'linear-gradient(135deg, rgba(0,10,20,0.55), rgba(10,60,100,0.4))',
     text: '#d0f0ff',
-    audio: 'music/country.wav',
+    audio: 'music/country.mp3',
   },
 };
 
@@ -249,7 +249,9 @@ function selectDance(style) {
 
   // Update card selected states
   document.querySelectorAll('.dcard').forEach(btn => {
-    btn.classList.toggle('selected', btn.dataset.style === style);
+    const isSelected = btn.dataset.style === style;
+    btn.classList.toggle('selected', isSelected);
+    btn.setAttribute('aria-pressed', String(isSelected));
   });
 
   // Swap the "Dance" word for the selected style name in the masthead

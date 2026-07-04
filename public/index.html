@@ -15,7 +15,7 @@
   <div class="music-prompt" id="music-prompt">
     <div class="music-prompt-card">
       <p>I have something for you...</p>
-      <button id="btn-start">Open</button>
+      <button id="btn-start" data-testid="gate-open">Open</button>
     </div>
   </div>
 
@@ -23,7 +23,7 @@
   <div class="ambient-bg" id="ambient-bg"></div>
 
   <!-- ===== Page 1: Anniversary Card ===== -->
-  <div id="page-card" class="page">
+  <div id="page-card" class="page" data-testid="stage-reveal">
     <div class="card-scene">
       <div class="card-wrapper" id="card-wrapper">
         <div class="card-body">
@@ -34,7 +34,7 @@
               <span></span><span class="divider-heart">&#10084;</span><span></span>
             </div>
             <p class="card-message">I love your body,<br>moving with my body&hellip;</p>
-            <button class="btn btn-open" id="btn-open">I want MORE</button>
+            <button class="btn btn-open" id="btn-open" data-testid="reveal-continue">I want MORE</button>
           </div>
         </div>
       </div>
@@ -42,7 +42,7 @@
   </div>
 
   <!-- ===== Page 2: Dance Selection ===== -->
-  <div id="page-dance" class="page">
+  <div id="page-dance" class="page" data-testid="stage-choose">
     <div class="dance-bg-layer" id="dance-bg-1"></div>
     <div class="dance-bg-layer" id="dance-bg-2"></div>
     <div class="dance-overlay"></div>
@@ -67,7 +67,7 @@
 
         <!-- Card grid -->
         <div class="dance-selector" id="dance-selector">
-          <button class="dcard" data-style="tango">
+          <button class="dcard" data-testid="choice-option" data-style="tango">
             <div class="dcard-img"></div>
             <div class="dcard-grain"></div>
             <div class="dcard-ghost">TANGO</div>
@@ -77,7 +77,7 @@
               <div class="dcard-tag">Sexy Closeness</div>
             </div>
           </button>
-          <button class="dcard" data-style="salsa">
+          <button class="dcard" data-testid="choice-option" data-style="salsa">
             <div class="dcard-img"></div>
             <div class="dcard-grain"></div>
             <div class="dcard-ghost">SALSA</div>
@@ -87,7 +87,7 @@
               <div class="dcard-tag">Sweaty Hip Swaying</div>
             </div>
           </button>
-          <button class="dcard" data-style="ballroom">
+          <button class="dcard" data-testid="choice-option" data-style="ballroom">
             <div class="dcard-img"></div>
             <div class="dcard-grain"></div>
             <div class="dcard-ghost">BALL&shy;ROOM</div>
@@ -97,7 +97,7 @@
               <div class="dcard-tag">Elegant &amp; Classic</div>
             </div>
           </button>
-          <button class="dcard" data-style="swing">
+          <button class="dcard" data-testid="choice-option" data-style="swing">
             <div class="dcard-img"></div>
             <div class="dcard-grain"></div>
             <div class="dcard-ghost">SWING</div>
@@ -107,7 +107,7 @@
               <div class="dcard-tag">Get Tossed Around</div>
             </div>
           </button>
-          <button class="dcard" data-style="hiphop">
+          <button class="dcard" data-testid="choice-option" data-style="hiphop">
             <div class="dcard-img"></div>
             <div class="dcard-grain"></div>
             <div class="dcard-ghost">HIP HOP</div>
@@ -117,7 +117,7 @@
               <div class="dcard-tag">Cuz We Funky</div>
             </div>
           </button>
-          <button class="dcard" data-style="country">
+          <button class="dcard" data-testid="choice-option" data-style="country">
             <div class="dcard-img"></div>
             <div class="dcard-grain"></div>
             <div class="dcard-ghost">COUNTRY</div>
@@ -130,15 +130,15 @@
         </div>
 
         <!-- Editorial info block (replaces old info panel) -->
-        <div class="info-block" id="info-block"></div>
+        <div class="info-block" id="info-block" data-testid="choice-info"></div>
 
-        <button class="btn btn-lockin" id="btn-lockin" disabled>Lock In Your Answer</button>
+        <button class="btn btn-lockin" id="btn-lockin" data-testid="commit" disabled>Lock In Your Answer</button>
       </div>
     </div>
   </div>
 
   <!-- ===== Page 3: Celebration ===== -->
-  <div id="page-celebrate" class="page">
+  <div id="page-celebrate" class="page" data-testid="stage-celebrate">
     <div class="celebrate-bg" id="celebrate-bg"></div>
     <div class="spotlight-container" id="spotlight-container"></div>
     <div class="celebrate-content" id="celebrate-content">
