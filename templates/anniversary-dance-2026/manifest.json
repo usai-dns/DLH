@@ -1,0 +1,56 @@
+{
+  "id": "anniversary-dance-2026",
+  "name": "Anniversary — Dance Lessons",
+  "description": "Interactive dance-style picker: a card reveal, six dance styles with music and venue info, and a spotlight celebration when they lock in their answer.",
+  "version": "1.0.0",
+  "preview_image": "assets/images/main-cut.png",
+  "price_cents": 1997,
+  "billing": "yearly",
+  "config_key": "__CARD_CONFIG__",
+  "fields": [
+    {
+      "key": "intro_text",
+      "type": "text",
+      "label": "Intro screen text",
+      "default": "I have something for you...",
+      "max_length": 100
+    },
+    {
+      "key": "card_title",
+      "type": "text",
+      "label": "Card title",
+      "default": "Happy Anniversary,\nMy Love",
+      "max_length": 80
+    },
+    {
+      "key": "card_message",
+      "type": "text",
+      "label": "Card message",
+      "default": "I love your body,\nmoving with my body…",
+      "max_length": 200
+    },
+    {
+      "key": "main_photo",
+      "type": "image",
+      "label": "Card photo",
+      "default": "assets/images/main-cut.png",
+      "options_dir": "options/images/"
+    },
+    {
+      "key": "dance_styles",
+      "type": "multi_select",
+      "label": "Dance styles to include",
+      "min": 2,
+      "max": 6,
+      "default": ["tango", "salsa", "ballroom", "swing", "hiphop", "country"],
+      "options": [
+        { "value": "tango", "label": "Tango" },
+        { "value": "salsa", "label": "Salsa" },
+        { "value": "ballroom", "label": "Ballroom" },
+        { "value": "swing", "label": "Swing" },
+        { "value": "hiphop", "label": "Hip Hop" },
+        { "value": "country", "label": "Country" }
+      ]
+    }
+  ]
+}

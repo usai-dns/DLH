@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Anniversary, Hallie</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Dancing+Script:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <!-- DLH:CONFIG -->
+</head>
+<body>
+
+  <!-- Intro prompt -->
+  <div class="music-prompt" id="music-prompt">
+    <div class="music-prompt-card">
+      <p>I have something for you...</p>
+      <button id="btn-start" data-testid="gate-open">Open</button>
+    </div>
+  </div>
+
+  <!-- Ambient floating sparkles -->
+  <div class="ambient-bg" id="ambient-bg"></div>
+
+  <!-- ===== Page 1: Anniversary Card ===== -->
+  <div id="page-card" class="page" data-testid="stage-reveal">
+    <div class="card-scene">
+      <div class="card-wrapper" id="card-wrapper">
+        <div class="card-body">
+          <img class="card-photo" src="assets/images/main-cut.png" alt="">
+          <div class="card-text-area">
+            <h1 class="card-title">Happy Anniversary,<br>My Love</h1>
+            <div class="card-divider">
+              <span></span><span class="divider-heart">&#10084;</span><span></span>
+            </div>
+            <p class="card-message">I love your body,<br>moving with my body&hellip;</p>
+            <button class="btn btn-open" id="btn-open" data-testid="reveal-continue">I want MORE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Page 2: Dance Selection ===== -->
+  <div id="page-dance" class="page" data-testid="stage-choose">
+    <div class="dance-bg-layer" id="dance-bg-1"></div>
+    <div class="dance-bg-layer" id="dance-bg-2"></div>
+    <div class="dance-overlay"></div>
+    <div class="dance-spotlights" id="dance-spotlights"></div>
+
+    <div class="dance-scroll" id="dance-scroll">
+      <div class="dance-content" id="dance-content">
+
+        <!-- Magazine masthead -->
+        <div class="mag-masthead">
+          <div class="mag-dateline">DENVER, COLORADO &middot; 2026</div>
+          <div class="mag-title-fill">LET&rsquo;S GO</div>
+          <div class="mag-title-stroke">TAKE SOME</div>
+          <div class="mag-title-script"><span id="mag-dance-word">Dance</span> Lessons</div>
+          <div class="mag-rule"></div>
+          <div class="mag-sub">
+            <span>Drop-in friendly</span>
+            <span>No commitment</span>
+            <span>Tap to explore</span>
+          </div>
+        </div>
+
+        <!-- Card grid -->
+        <div class="dance-selector" id="dance-selector">
+          <button class="dcard" data-testid="choice-option" data-style="tango">
+            <div class="dcard-img"></div>
+            <div class="dcard-grain"></div>
+            <div class="dcard-ghost">TANGO</div>
+            <div class="dcard-emoji">&#x1F339;</div>
+            <div class="dcard-front">
+              <div class="dcard-name">TANGO</div>
+              <div class="dcard-tag">Sexy Closeness</div>
+            </div>
+          </button>
+          <button class="dcard" data-testid="choice-option" data-style="salsa">
+            <div class="dcard-img"></div>
+            <div class="dcard-grain"></div>
+            <div class="dcard-ghost">SALSA</div>
+            <div class="dcard-emoji">&#x1F336;&#xFE0F;</div>
+            <div class="dcard-front">
+              <div class="dcard-name">SALSA</div>
+              <div class="dcard-tag">Sweaty Hip Swaying</div>
+            </div>
+          </button>
+          <button class="dcard" data-testid="choice-option" data-style="ballroom">
+            <div class="dcard-img"></div>
+            <div class="dcard-grain"></div>
+            <div class="dcard-ghost">BALL&shy;ROOM</div>
+            <div class="dcard-emoji">&#x1F483;</div>
+            <div class="dcard-front">
+              <div class="dcard-name">BALLROOM</div>
+              <div class="dcard-tag">Elegant &amp; Classic</div>
+            </div>
+          </button>
+          <button class="dcard" data-testid="choice-option" data-style="swing">
+            <div class="dcard-img"></div>
+            <div class="dcard-grain"></div>
+            <div class="dcard-ghost">SWING</div>
+            <div class="dcard-emoji">&#x1F3BA;</div>
+            <div class="dcard-front">
+              <div class="dcard-name">SWING</div>
+              <div class="dcard-tag">Get Tossed Around</div>
+            </div>
+          </button>
+          <button class="dcard" data-testid="choice-option" data-style="hiphop">
+            <div class="dcard-img"></div>
+            <div class="dcard-grain"></div>
+            <div class="dcard-ghost">HIP HOP</div>
+            <div class="dcard-emoji">&#x1F3A4;</div>
+            <div class="dcard-front">
+              <div class="dcard-name">HIP HOP</div>
+              <div class="dcard-tag">Cuz We Funky</div>
+            </div>
+          </button>
+          <button class="dcard" data-testid="choice-option" data-style="country">
+            <div class="dcard-img"></div>
+            <div class="dcard-grain"></div>
+            <div class="dcard-ghost">COUNTRY</div>
+            <div class="dcard-emoji">&#x1F920;</div>
+            <div class="dcard-front">
+              <div class="dcard-name">COUNTRY</div>
+              <div class="dcard-tag">Because Colorado</div>
+            </div>
+          </button>
+        </div>
+
+        <!-- Editorial info block (replaces old info panel) -->
+        <div class="info-block" id="info-block" data-testid="choice-info"></div>
+
+        <button class="btn btn-lockin" id="btn-lockin" data-testid="commit" disabled>Lock In Your Answer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Page 3: Celebration ===== -->
+  <div id="page-celebrate" class="page" data-testid="stage-celebrate">
+    <div class="celebrate-bg" id="celebrate-bg"></div>
+    <div class="spotlight-container" id="spotlight-container"></div>
+    <div class="celebrate-content" id="celebrate-content">
+      <h1 class="celebrate-main">&#127881; It&rsquo;s a Date! &#127881;</h1>
+      <div class="celebrate-dance-name" id="celebrate-dance-name"></div>
+      <p class="celebrate-sub">Get ready to move, my love</p>
+      <div class="celebrate-hearts">&#10084;&#65039;</div>
+    </div>
+  </div>
+
+  <canvas id="effects-canvas"></canvas>
+  <script src="script.js"></script>
+</body>
+</html>

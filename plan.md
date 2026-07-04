@@ -36,12 +36,8 @@ DLH does NOT design or build cards. That's a separate project. DLH consumes fini
 - **No D1 databases, R2 buckets, or KV namespaces exist for DLH yet**
 - ~120 other workers (Forward Flow, CRM, etc.)
 
-### What does NOT exist (previously claimed in plan.md)
-- No `product` branch
-- No `dlh-db` D1 database
-- No `dlh-assets` R2 bucket
-- No `dlh-worker` or `dlh-serving` workers
-- No order pipeline or Stripe integration
+### Correction history
+- 2026-06-11 audit found most previously-claimed infra missing. 2026-07-04: `dlh-db` D1 DOES exist (`2d05bbc1-dbbb-4dd5-91ef-9d842da04c92`, had one experimental `orders` table, renamed to `orders_legacy_2026_02`). Still no R2 (token lacks R2 permissions), no Stripe, no portal.
 
 ---
 
@@ -319,11 +315,13 @@ DLH/
 
 ## 6. Milestones
 
-### M0 — Hygiene (2–3 days)
-- Compress images to <400KB, convert WAVs to MP3 (<2.5MB)
-- Remove dead assets (flamenco.jpg, blues.mp3)
-- Add data-testid to card flow stages, rewrite tests to assert flow not copy
-- dennisloveshallie.com unchanged throughout
+### M0 — Hygiene ✅ DONE 2026-07-04
+- Media 127MB → ~9MB (sharp <400KB images, 112kbps MP3s, WAVs converted)
+- Dead assets removed (preserved on `valentines` branch)
+- Flow contract tests in `tests/card-flow.spec.js` assert via data-testid only
+  (gate-open → stage-reveal/reveal-continue → stage-choose/choice-option/choice-info → commit → stage-celebrate)
+- `PW_BASE_URL` env runs the same suite against any card URL
+- scripts/compress-images.mjs enforces the image budget
 
 ### M1 — Serving spine (1 week)
 - Create R2 `dlh-assets`, D1 `dlh-db`, apply schema
