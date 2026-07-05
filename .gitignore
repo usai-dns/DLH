@@ -3,3 +3,4 @@ test-results/
 screenshots/
 .DS_Store
 .wrangler/
+.wrangler-shared/

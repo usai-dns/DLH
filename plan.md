@@ -331,11 +331,20 @@ DLH/
 - Seed one card row in D1
 - Verify: served card renders correctly at preview URL
 
-### M2 — API + config (1 week)
-- Build dlh-api with Hono
-- GET /templates, POST /orders, GET/PUT /cards/:slug/config
-- Convert anniversary card JS to read from window.__CARD_CONFIG__
-- Verify: changing config.json changes what the card shows
+### M2 — API + config ✅ DONE 2026-07-05
+- api/ worker deployed: **https://dlh-api.usai-dlh.workers.dev/api/**
+  (dependency-free router, same style as serve/ — no Hono, npm-through-proxy is flaky)
+- GET /templates, GET /templates/:id (+manifest +defaults from Workers Assets),
+  POST /orders (customer upsert + order + draft card seeded with defaults),
+  GET /orders/:id, GET /cards/:slug, PUT /cards/:slug/config, PUT /cards/:slug/publish
+- Writes are gated by a per-card `edit_token` (returned once at order creation;
+  schema/002-edit-token.sql) until real auth lands in M4
+- Config writes are manifest-validated (text lengths, safe asset paths,
+  multi_select min/max/options, unknown fields rejected with per-field errors)
+- Verified: full local E2E on shared wrangler-dev D1 (order -> 403 without token ->
+  422 invalid config -> valid config -> served card reflects it -> publish flips
+  cache headers -> browser render + 7/7 contract suite on a 3-style card);
+  deployed E2E via curl (order -> configure -> dlh-serve renders the config)
 
 ### M3 — Portal + configurator (1–2 weeks)
 - Build portal as static Pages site
