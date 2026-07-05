@@ -19,6 +19,12 @@
     "run_worker_first": true
   },
   "vars": {
-    "SERVE_BASE_URL": "https://dlh-serve.usai-dlh.workers.dev"
+    "SERVE_BASE_URL": "https://dlh-serve.usai-dlh.workers.dev",
+    "PORTAL_BASE_URL": "https://dlh-portal.pages.dev",
+    "STRIPE_MODE": "subscription"
+    // Secrets (wrangler secret put, from api/):
+    //   STRIPE_SECRET_KEY     — enables payment enforcement
+    //   STRIPE_WEBHOOK_SECRET — webhook signature verification
+    // Var once Stripe product exists: STRIPE_PRICE_ID
   }
 }

@@ -99,6 +99,7 @@
       const saved = JSON.parse(localStorage.getItem(cardKey(resumeSlug)));
       state.slug = resumeSlug;
       state.editToken = saved.edit_token;
+      state.checkoutUrl = saved.checkout_url || null;
       const { card } = await api('/api/cards/' + encodeURIComponent(resumeSlug));
       Object.assign(state.config, card.config);
       enterConfigurator();
@@ -119,7 +120,10 @@
       const res = await api('/api/orders', { method: 'POST', body: JSON.stringify(body) });
       state.slug = res.slug;
       state.editToken = res.edit_token;
-      localStorage.setItem(cardKey(res.slug), JSON.stringify({ edit_token: res.edit_token, order_id: res.order_id }));
+      state.checkoutUrl = res.checkout_url || null;
+      localStorage.setItem(cardKey(res.slug), JSON.stringify({
+        edit_token: res.edit_token, order_id: res.order_id, checkout_url: res.checkout_url || null,
+      }));
       enterConfigurator();
     } catch (err) {
       el('order-error').textContent = err.message + (err.status === 409 ? ' — try another address' : '');
@@ -269,7 +273,12 @@
       setStatus('Published');
       setEditMode(false);
     } catch (err) {
-      el('panel-error').textContent = 'Publish failed: ' + err.message;
+      if (err.status === 402 && state.checkoutUrl) {
+        el('panel-error').innerHTML =
+          'Payment needed to publish — <a href="' + esc(state.checkoutUrl) + '" style="color:#fff">complete checkout</a>, then publish again.';
+      } else {
+        el('panel-error').textContent = 'Publish failed: ' + err.message;
+      }
     }
   }
 

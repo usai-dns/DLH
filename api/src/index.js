@@ -14,6 +14,7 @@
 // serve worker ships). Configs live in D1 until the token gains R2 access.
 
 import { validateConfig } from './validate.js';
+import { stripeEnabled, createCheckoutSession, verifyWebhookSignature } from './stripe.js';
 
 const SLUG_RE = /^[a-z0-9][a-z0-9-]{1,62}$/;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -108,13 +109,71 @@ async function createOrder(env, request) {
      VALUES (?, ?, ?, ?, ?, ?, 'draft', ?)`
   ).bind(cardId, orderId, customer.id, template_id, slug, JSON.stringify(defaults), editToken).run();
 
+  // Stripe checkout (live path). Without keys, orders stay in dev mode and
+  // publish is not payment-gated.
+  let checkoutUrl = null;
+  let checkoutError = null;
+  if (stripeEnabled(env)) {
+    try {
+      const portal = env.PORTAL_BASE_URL || '';
+      const session = await createCheckoutSession(env, {
+        orderId,
+        email,
+        successUrl: portal + '/configure?template=' + encodeURIComponent(template_id) + '&slug=' + encodeURIComponent(slug) + '&paid=1',
+        cancelUrl: portal + '/configure?template=' + encodeURIComponent(template_id) + '&slug=' + encodeURIComponent(slug),
+      });
+      checkoutUrl = session.url;
+    } catch (e) {
+      console.error(e);
+      checkoutError = 'checkout unavailable';
+    }
+  }
+
   return json({
     order_id: orderId,
     card_id: cardId,
     slug,
     edit_token: editToken, // shown once; store it client-side
     preview_url: (env.SERVE_BASE_URL || '') + '/' + slug + '/',
+    payment_required: stripeEnabled(env),
+    checkout_url: checkoutUrl,
+    ...(checkoutError ? { checkout_error: checkoutError } : {}),
   }, 201);
+}
+
+async function stripeWebhook(env, request) {
+  const payload = await request.text();
+  const ok = await verifyWebhookSignature(
+    payload, request.headers.get('stripe-signature'), env.STRIPE_WEBHOOK_SECRET || ''
+  );
+  if (!ok) return err(400, 'invalid signature');
+
+  let event;
+  try { event = JSON.parse(payload); } catch { return err(400, 'invalid payload'); }
+  const obj = event.data && event.data.object || {};
+
+  if (event.type === 'checkout.session.completed') {
+    const orderId = obj.metadata && obj.metadata.order_id;
+    if (orderId) {
+      await env.DB.prepare(
+        `UPDATE orders SET status = 'paid',
+                stripe_payment_intent_id = COALESCE(?, stripe_payment_intent_id),
+                stripe_subscription_id = COALESCE(?, stripe_subscription_id)
+          WHERE id = ?`
+      ).bind(obj.payment_intent || null, obj.subscription || null, orderId).run();
+    }
+  } else if (event.type === 'customer.subscription.deleted') {
+    const sub = obj.id;
+    if (sub) {
+      await env.DB.prepare(`UPDATE orders SET status = 'expired' WHERE stripe_subscription_id = ?`).bind(sub).run();
+      await env.DB.prepare(
+        `UPDATE cards SET status = 'suspended', updated_at = datetime('now')
+          WHERE order_id IN (SELECT id FROM orders WHERE stripe_subscription_id = ?)`
+      ).bind(sub).run();
+    }
+  }
+
+  return json({ received: true });
 }
 
 async function getOrder(env, id) {
@@ -174,6 +233,14 @@ async function publishCard(env, request, slug) {
   if (response) return response;
   if (card.status === 'suspended') return err(409, 'card is suspended');
 
+  // Payment gate: only enforced when Stripe is configured.
+  if (stripeEnabled(env)) {
+    const order = await env.DB.prepare(
+      `SELECT o.status FROM orders o JOIN cards c ON c.order_id = o.id WHERE c.id = ?`
+    ).bind(card.id).first();
+    if (!order || order.status !== 'paid') return err(402, 'payment required');
+  }
+
   await env.DB.prepare(
     `UPDATE cards SET status = 'published', published_at = COALESCE(published_at, datetime('now')),
             updated_at = datetime('now') WHERE id = ?`
@@ -202,6 +269,7 @@ export default {
       if (m === 'GET' && seg[1] === 'cards' && seg.length === 3) return await getCard(env, seg[2]);
       if (m === 'PUT' && seg[1] === 'cards' && seg.length === 4 && seg[3] === 'config') return await putConfig(env, request, seg[2]);
       if (m === 'PUT' && seg[1] === 'cards' && seg.length === 4 && seg[3] === 'publish') return await publishCard(env, request, seg[2]);
+      if (m === 'POST' && seg[1] === 'webhooks' && seg[2] === 'stripe') return await stripeWebhook(env, request);
 
       return err(404, 'not found');
     } catch (e) {

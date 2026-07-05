@@ -346,16 +346,30 @@ DLH/
   cache headers -> browser render + 7/7 contract suite on a 3-style card);
   deployed E2E via curl (order -> configure -> dlh-serve renders the config)
 
-### M3 — Portal + configurator (1–2 weeks)
-- Build portal as static Pages site
-- Card catalog, configure page (iframe + postMessage), preview mode
-- Add edit mode to anniversary card (tappable text, photo picker, style toggler)
-- Verify: customer can configure and preview a card
+### M3 — Portal + configurator ✅ DONE 2026-07-05
+- Portal live: **https://dlh-portal.pages.dev** (catalog, claim-your-slug order
+  form, live configurator, publish)
+- Card edit mode (?edit=true): tap-to-edit text on the live card; postMessage
+  protocol dlh:ready / dlh:config_update / dlh:set_config
+- Configurator: manifest-driven panel + live iframe, edits sync both ways in
+  real time; preview mode reloads clean; publish shows the final URL
+- Local overrides for testing: portal reads ?api= and ?serve= query params
+- Full journey covered by tests/portal-flow.spec.js via scripts/e2e-local.sh
 
-### M4 — Stripe + publish (1 week)
-- Stripe product ($19.97/yr), checkout session, webhooks
-- Payment success → config.json to R2, card published
-- Verify: end-to-end test payment → live card at unique URL
+### M4 — Stripe + publish ✅ CODE DONE 2026-07-05 (awaiting keys to go live)
+- api/src/stripe.js: raw Stripe REST (no SDK) — checkout session creation,
+  HMAC webhook signature verification (constant-time, 5-min tolerance)
+- POST /orders creates a Checkout Session when STRIPE_SECRET_KEY is set and
+  returns checkout_url + payment_required; publish returns 402 until the
+  order is paid. Without keys: dev mode, publish ungated (current prod state)
+- POST /api/webhooks/stripe: checkout.session.completed → order paid;
+  customer.subscription.deleted → order expired + card suspended (serve 404s)
+- Portal handles 402 by linking to checkout
+- Verified locally with signed webhooks through the full lifecycle
+- **To go live:** create Stripe product/price, then from api/:
+  `wrangler secret put STRIPE_SECRET_KEY`, `wrangler secret put STRIPE_WEBHOOK_SECRET`,
+  set STRIPE_PRICE_ID var, point the Stripe webhook at
+  https://dlh-api.usai-dlh.workers.dev/api/webhooks/stripe
 
 ### M5 — Production (1 week)
 - Wildcard DNS for *.dlhcards.com → dlh-serve
