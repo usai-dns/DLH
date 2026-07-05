@@ -14,6 +14,10 @@ const DEFAULT_CONFIG = {
 };
 const CFG = Object.assign({}, DEFAULT_CONFIG, window.__CARD_CONFIG__ || {});
 
+// Edit mode: the DLH portal iframes the card with ?edit=true and syncs
+// config over postMessage (dlh:set_config in, dlh:config_update out).
+const EDIT_MODE = new URLSearchParams(location.search).get('edit') === 'true';
+
 function setMultilineText(el, text) {
   if (!el || typeof text !== 'string') return;
   el.textContent = '';
@@ -23,18 +27,76 @@ function setMultilineText(el, text) {
   });
 }
 
-function applyCardConfig() {
-  setMultilineText(document.querySelector('.music-prompt-card p'), CFG.intro_text);
-  setMultilineText(document.querySelector('.card-title'), CFG.card_title);
-  setMultilineText(document.querySelector('.card-message'), CFG.card_message);
-  const photo = document.querySelector('.card-photo');
-  if (photo && CFG.main_photo) photo.src = CFG.main_photo;
-  const keep = Array.isArray(CFG.dance_styles) && CFG.dance_styles.length >= 2
-    ? CFG.dance_styles
+function selectedStylesOf(cfg) {
+  return Array.isArray(cfg.dance_styles) && cfg.dance_styles.length >= 2
+    ? cfg.dance_styles
     : DEFAULT_CONFIG.dance_styles;
+}
+
+function applyCardConfig(cfg) {
+  setMultilineText(document.querySelector('.music-prompt-card p'), cfg.intro_text);
+  setMultilineText(document.querySelector('.card-title'), cfg.card_title);
+  setMultilineText(document.querySelector('.card-message'), cfg.card_message);
+  const photo = document.querySelector('.card-photo');
+  if (photo && cfg.main_photo) photo.src = cfg.main_photo;
+  const keep = selectedStylesOf(cfg);
   document.querySelectorAll('.dcard').forEach(btn => {
-    if (!keep.includes(btn.dataset.style)) btn.remove();
+    // Published cards drop excluded styles entirely; edit mode keeps the
+    // nodes so the portal can toggle them back on live.
+    if (EDIT_MODE) btn.hidden = !keep.includes(btn.dataset.style);
+    else if (!keep.includes(btn.dataset.style)) btn.remove();
   });
+}
+
+// Live config state (edit mode mutates this and re-applies).
+const LIVE_CFG = Object.assign({}, CFG);
+
+// ---- DLH edit-mode protocol (portal <-> card over postMessage) ----
+function emitConfigUpdate() {
+  if (!EDIT_MODE || window.parent === window) return;
+  window.parent.postMessage({ type: 'dlh:config_update', config: Object.assign({}, LIVE_CFG) }, '*');
+}
+
+if (EDIT_MODE) {
+  window.addEventListener('message', (e) => {
+    const msg = e.data;
+    if (!msg || typeof msg !== 'object') return;
+    if (msg.type === 'dlh:set_config' && msg.config && typeof msg.config === 'object') {
+      Object.assign(LIVE_CFG, msg.config);
+      applyCardConfig(LIVE_CFG);
+    }
+  });
+}
+
+function enableInlineEditing() {
+  const editable = [
+    ['.music-prompt-card p', 'intro_text'],
+    ['.card-title', 'card_title'],
+    ['.card-message', 'card_message'],
+  ];
+  for (const [selector, key] of editable) {
+    const el = document.querySelector(selector);
+    if (!el) continue;
+    el.classList.add('dlh-editable');
+    el.setAttribute('data-testid', 'edit-' + key);
+    try { el.contentEditable = 'plaintext-only'; } catch { el.contentEditable = 'true'; }
+    el.addEventListener('click', (e) => e.stopPropagation());
+    el.addEventListener('blur', () => {
+      const text = el.innerText.replace(/\u00a0/g, ' ').trim();
+      if (text && text !== LIVE_CFG[key]) {
+        LIVE_CFG[key] = text;
+        emitConfigUpdate();
+      } else {
+        applyCardConfig(LIVE_CFG);
+      }
+    });
+  }
+  const style = document.createElement('style');
+  style.textContent = [
+    '.dlh-editable { outline: 2px dashed rgba(215,38,56,.55); outline-offset: 4px; cursor: text; }',
+    '.dlh-editable:focus { outline-style: solid; }',
+  ].join('\n');
+  document.head.appendChild(style);
 }
 
 const DANCE_STYLES = {
@@ -483,7 +545,13 @@ function launchConfetti() {
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  applyCardConfig();
+  applyCardConfig(LIVE_CFG);
+  if (EDIT_MODE) {
+    enableInlineEditing();
+    if (window.parent !== window) {
+      window.parent.postMessage({ type: 'dlh:ready', config: Object.assign({}, LIVE_CFG) }, '*');
+    }
+  }
 
   // Set card colors + image + overlay from style data
   document.querySelectorAll('.dcard').forEach(btn => {

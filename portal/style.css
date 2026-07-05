@@ -1,0 +1,201 @@
+/* DLH portal — magazine aesthetic shared with the cards. */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  min-height: 100vh;
+  background: #0a0a0a;
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ---------- masthead (catalog) ---------- */
+.masthead { max-width: 680px; margin: 0 auto; padding: 48px 20px 8px; }
+
+.mag-dateline {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 11px; letter-spacing: 6px;
+  color: rgba(255,255,255,0.35); margin-bottom: 10px;
+}
+.mag-title-fill {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: clamp(52px, 14vw, 100px); line-height: 0.85;
+  color: #fff; letter-spacing: -1px; font-weight: 400;
+}
+.mag-title-stroke {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: clamp(52px, 14vw, 100px); line-height: 0.85;
+  letter-spacing: -1px; -webkit-text-stroke: 2px #fff;
+  color: transparent; font-weight: 400;
+}
+.mag-title-script {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(44px, 12vw, 88px); font-style: italic; font-weight: 400;
+  color: #D72638; line-height: 1.05;
+}
+.mag-rule { height: 2px; background: rgba(255,255,255,0.5); margin: 16px 0 5px; }
+.mag-sub {
+  display: flex; justify-content: space-between;
+  font-size: 9px; letter-spacing: 2px;
+  color: rgba(255,255,255,0.3); text-transform: uppercase;
+}
+
+/* ---------- catalog ---------- */
+main { max-width: 680px; margin: 0 auto; padding: 24px 20px 60px; }
+
+.catalog { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 560px) { .catalog { grid-template-columns: 1fr 1fr; } }
+
+.catalog-card {
+  display: block; text-decoration: none; color: #fff;
+  background: #D72638; padding: 22px 20px;
+  transition: transform 0.2s ease;
+  position: relative; overflow: hidden;
+}
+.catalog-card:hover { transform: scale(1.02); }
+.catalog-card-name {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 26px; letter-spacing: 2px; line-height: 1;
+}
+.catalog-card-desc {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic; font-size: 13px;
+  color: rgba(255,255,255,0.75); margin: 8px 0 14px;
+}
+.catalog-card-price {
+  font-size: 12px; font-weight: 700; letter-spacing: 1px;
+  color: rgba(255,255,255,0.9);
+}
+.catalog-card-cta {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 15px; letter-spacing: 2px; margin-top: 14px;
+  border-top: 1px solid rgba(255,255,255,0.3); padding-top: 10px;
+}
+.loading { color: rgba(255,255,255,0.5); font-style: italic; }
+
+.footer {
+  max-width: 680px; margin: 0 auto; padding: 20px;
+  font-size: 10px; letter-spacing: 2px; color: rgba(255,255,255,0.25);
+  text-transform: uppercase;
+}
+
+/* ---------- configure page ---------- */
+.configure-body { display: flex; flex-direction: column; min-height: 100vh; }
+
+.configure-header {
+  display: flex; align-items: baseline; gap: 18px;
+  padding: 18px 20px; border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+.back-link {
+  color: rgba(255,255,255,0.5); text-decoration: none;
+  font-size: 13px; white-space: nowrap;
+}
+.back-link:hover { color: #fff; }
+.configure-title {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 22px; letter-spacing: 2px;
+}
+.status-line {
+  margin-left: auto; font-size: 12px; font-style: italic;
+  font-family: 'Playfair Display', Georgia, serif;
+  color: rgba(255,255,255,0.5);
+}
+
+/* order setup */
+.order-setup { max-width: 420px; margin: 40px auto; padding: 0 20px; }
+.order-setup h2 {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 32px; letter-spacing: 2px; margin-bottom: 4px;
+}
+.hint {
+  font-family: 'Playfair Display', Georgia, serif; font-style: italic;
+  font-size: 13px; color: rgba(255,255,255,0.5); margin-bottom: 18px;
+}
+.order-setup form { display: flex; flex-direction: column; gap: 14px; }
+.order-setup label {
+  display: flex; flex-direction: column; gap: 6px;
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+}
+.order-setup input, .panel input[type="text"], .panel input:not([type]), .panel textarea {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff; padding: 12px 14px; font-size: 15px;
+  font-family: 'DM Sans', sans-serif;
+}
+.order-setup input:focus, .panel input:focus, .panel textarea:focus {
+  outline: none; border-color: #D72638;
+}
+.slug-row { display: flex; align-items: center; gap: 8px; }
+.slug-row input { flex: 1; }
+.slug-suffix { font-size: 12px; color: rgba(255,255,255,0.4); text-transform: none; letter-spacing: 0; }
+
+.btn-primary, .btn-secondary, .btn-publish {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 17px; letter-spacing: 3px;
+  padding: 13px 26px; cursor: pointer; border: none;
+  transition: transform 0.15s ease;
+}
+.btn-primary { background: #D72638; color: #fff; }
+.btn-secondary { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.35); }
+.btn-publish { background: #00A878; color: #fff; }
+.btn-primary:hover, .btn-secondary:hover, .btn-publish:hover { transform: scale(1.03); }
+
+.form-error { color: #ff7b8a; font-size: 13px; min-height: 18px; }
+
+/* configurator layout */
+.configurator {
+  display: flex; flex-direction: column; flex: 1; min-height: 0;
+}
+@media (min-width: 900px) {
+  .configurator { flex-direction: row; }
+  .panel { width: 360px; border-right: 1px solid rgba(255,255,255,0.12); overflow-y: auto; }
+  .stage { flex: 1; }
+}
+
+.panel { padding: 20px; }
+.panel-head h2 {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 24px; letter-spacing: 2px;
+}
+.panel-fields { display: flex; flex-direction: column; gap: 16px; margin: 18px 0; }
+.field-row { display: flex; flex-direction: column; gap: 6px; }
+.field-row > label {
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+}
+.field-row textarea { resize: vertical; min-height: 54px; }
+.checks { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.check {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 14px; cursor: pointer;
+  background: rgba(255,255,255,0.05); padding: 8px 10px;
+}
+.check input { accent-color: #D72638; }
+
+.panel-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+
+.published-box {
+  margin-top: 18px; padding: 16px;
+  border: 2px solid #00A878; background: rgba(0,168,120,0.08);
+}
+.published-label {
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  font-size: 15px; letter-spacing: 3px; color: #00d69a; margin-bottom: 8px;
+}
+.published-box a { color: #fff; word-break: break-all; }
+
+/* stage */
+.stage { display: flex; flex-direction: column; min-height: 480px; }
+.stage-bar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 14px; background: rgba(255,255,255,0.05);
+  font-size: 10px; letter-spacing: 2px; color: rgba(255,255,255,0.5);
+}
+.stage-mode { color: #D72638; font-weight: 700; }
+#card-frame { flex: 1; width: 100%; border: 0; background: #000; min-height: 480px; }
+
+@media (max-width: 899px) {
+  .panel { border-bottom: 1px solid rgba(255,255,255,0.12); }
+  #card-frame { min-height: 70vh; }
+}

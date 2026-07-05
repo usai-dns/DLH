@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DLH Cards — Interactive Gift Cards</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="masthead">
+    <div class="mag-dateline">INTERACTIVE GIFT CARDS</div>
+    <h1 class="mag-title-fill">GIVE THEM</h1>
+    <h1 class="mag-title-stroke">SOMETHING</h1>
+    <h1 class="mag-title-script">Unforgettable</h1>
+    <div class="mag-rule"></div>
+    <div class="mag-sub">
+      <span>Interactive</span>
+      <span>Personalized</span>
+      <span>Theirs forever</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="catalog" id="catalog" data-testid="catalog">
+      <p class="loading" id="catalog-loading">Loading cards&hellip;</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>DLH Cards &middot; 2026</span>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>DLH.renderCatalog();</script>
+</body>
+</html>

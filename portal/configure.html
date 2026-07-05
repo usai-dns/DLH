@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customize Your Card — DLH</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="configure-body">
+
+  <header class="configure-header">
+    <a class="back-link" href="./">&larr; All cards</a>
+    <div class="configure-title" id="configure-title">Customize</div>
+    <div class="status-line" id="status-line" data-testid="status-line"></div>
+  </header>
+
+  <!-- Step 1: claim your card -->
+  <section class="order-setup" id="order-setup" data-testid="order-setup">
+    <h2>Claim your card</h2>
+    <p class="hint">Pick the web address your card will live at. You&rsquo;ll customize it next.</p>
+    <form id="order-form">
+      <label>Your email
+        <input type="email" id="order-email" data-testid="order-email" required placeholder="you@example.com">
+      </label>
+      <label>Your name (optional)
+        <input type="text" id="order-name" data-testid="order-name" placeholder="Dennis">
+      </label>
+      <label>Card address
+        <div class="slug-row">
+          <input type="text" id="order-slug" data-testid="order-slug" required
+                 pattern="[a-z0-9][a-z0-9\-]{1,62}" placeholder="dennis-loves-hallie">
+          <span class="slug-suffix" id="slug-suffix"></span>
+        </div>
+      </label>
+      <button type="submit" class="btn-primary" data-testid="order-create">Start customizing</button>
+      <p class="form-error" id="order-error" data-testid="order-error"></p>
+    </form>
+  </section>
+
+  <!-- Step 2: live configurator -->
+  <section class="configurator" id="configurator" data-testid="configurator" hidden>
+    <div class="panel" id="panel">
+      <div class="panel-head">
+        <h2 id="panel-template-name">Your card</h2>
+        <p class="hint">Change fields here or tap the dashed text on the card itself. Everything updates live.</p>
+      </div>
+      <div class="panel-fields" id="panel-fields"></div>
+      <div class="panel-actions">
+        <button class="btn-secondary" id="btn-preview" data-testid="btn-preview">Preview</button>
+        <button class="btn-primary" id="btn-save" data-testid="btn-save">Save draft</button>
+        <button class="btn-publish" id="btn-publish" data-testid="btn-publish">Publish card</button>
+      </div>
+      <p class="form-error" id="panel-error" data-testid="panel-error"></p>
+      <div class="published-box" id="published-box" data-testid="published-box" hidden>
+        <div class="published-label">YOUR CARD IS LIVE</div>
+        <a id="published-url" data-testid="published-url" target="_blank" rel="noopener"></a>
+        <p class="hint">Send this link to your person.</p>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="stage-bar">
+        <span class="stage-mode" id="stage-mode">EDIT MODE</span>
+        <span class="stage-slug" id="stage-slug"></span>
+      </div>
+      <iframe id="card-frame" data-testid="card-frame" title="Your card"></iframe>
+    </div>
+  </section>
+
+  <script src="app.js"></script>
+  <script>DLH.initConfigurator();</script>
+</body>
+</html>
